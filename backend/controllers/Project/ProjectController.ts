@@ -54,6 +54,7 @@ export class ProjectController {
         }
 
     }
+    
     static async deleteProject(req: Request, res: Response): Promise<Response> {
         try {
             const project = await ProjectManager.deleteProject(req);

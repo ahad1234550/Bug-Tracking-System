@@ -6,9 +6,9 @@ import { ErrorCodes, UserConstants } from "../../constants";
 
 
 export class UserController {
-    static async profile(req: Request, res: Response): Promise<Response> {
+    static async getProfile(req: Request, res: Response): Promise<Response> {
         try {
-            const user = await UserManager.profile(req);
+            const user = await UserManager.getProfile(req);
             res.json({
                 success: true,
                 data: user

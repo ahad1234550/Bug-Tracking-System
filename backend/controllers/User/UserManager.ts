@@ -16,7 +16,7 @@ interface updateProfile {
 }
 
 export class UserManager {
-    static async profile(req: AuthRequest): Promise<user> {
+    static async getProfile(req: AuthRequest): Promise<user> {
         const data = req.user;
         const id = data.id;
         const user = await UserHandler.findUserById(id)

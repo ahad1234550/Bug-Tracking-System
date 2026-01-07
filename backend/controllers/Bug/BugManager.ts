@@ -47,7 +47,11 @@ export class BugManager {
 
     static async readBug(req: AuthRequest): Promise<bug[]> {
 
-        let project_id: string | number | null = req.query.project as string;
+        console.log(req.params.projectId);
+
+        let project_id: string | number = req.params.projectId as string;
+
+        console.log("Project: ", project_id)
 
         if (!project_id) {
             throw new Exception(
@@ -96,8 +100,10 @@ export class BugManager {
 
         const user = req.user;
 
-        const status = req.query.status as string;
-        const bug_id = req.query.bug as string;
+        const data = req.body;
+
+        const status = data.status as string;
+        const bug_id = req.params.bugId as string;
 
         await BugUtil.checkStatusChangeData(status, bug_id, user.role, user.id);
 

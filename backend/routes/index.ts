@@ -9,9 +9,6 @@ const router = Router();
 router.get("/", (req: Request, res: Response) => {
   res.render("index");
 });
-router.use('/api/',authRouter)
-router.use('/api/',userRouter)
-router.use('/api/',projectRouter);
-router.use('/api/',bugRouter);
+router.use('/api/', [authRouter, userRouter, projectRouter, bugRouter]);
 
 export default router;

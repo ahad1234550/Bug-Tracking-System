@@ -71,7 +71,7 @@ export class ProjectManager {
             QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(project.id, parseInt(qa_id, 10)))
         );
 
-        const developerStrings = Array.isArray(data.Developer) ? data.Developer : [data.Developer];
+        const developerStrings = Array.isArray(data.developer) ? data.developer : [data.developer];
 
         const developer = await Promise.all(
             developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project.id, parseInt(developer_id, 10)))
@@ -89,7 +89,7 @@ export class ProjectManager {
 
         const data = req.body;
 
-        const project_id = parseInt(data.project_id as string, 10);
+        const project_id = parseInt(req.params.projectId as string, 10);
 
         const projectCheck = await ProjectHandler.findProjectByIdAndManager(project_id, user.id);
 
@@ -223,7 +223,7 @@ export class ProjectManager {
     }
 
     static async getAllAssociatedQA(req: AuthRequest): Promise<user[] | null> {
-        const project_id = parseInt(req.query.project as string, 10);
+        const project_id = parseInt(req.params.projectId as string, 10);
 
         const qaRows = await ProjectHandler.getAllQAForProject(project_id);
         const qaIds = qaRows.map((q: any) => q.qa_id);
@@ -243,7 +243,7 @@ export class ProjectManager {
     }
 
     static async getAllAssociatedDeveloper(req: AuthRequest): Promise<user[] | null> {
-        const project_id = parseInt(req.query.project as string, 10);
+        const project_id = parseInt(req.params.projectId as string, 10);
 
         const developerRows = await ProjectHandler.getAllDeveloperForProject(project_id);
         const developerIds = developerRows.map((d:  any) => d.developer_id);
