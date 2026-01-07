@@ -1,21 +1,7 @@
 import { db } from "../helpers";
-import { Model } from "sequelize";
+import { bug } from "../interface/Bug";
 
 const bugModel = db.Bug as any;
-
-
-interface bug extends Model {
-    id: number,
-    title: string,
-    description: string,
-    deadline: Date,
-    screenshot: string,
-    type: "feature" | "bug",
-    status: "new" | "started" | "completed" | "resolved",
-    project_id: number,
-    qa_id: number,
-    developer_id: number
-}
 
 export class BugHandler {
     static async addBug(title: string, description: string, deadline: Date, type: "feature" | "bug", status: "new" | "started" | "completed" | "resolved", project_id: number, qa_id: number, screenshot: string, developer_id: number): Promise<bug> {

@@ -1,4 +1,3 @@
-import { Model } from "sequelize";
 import { ProjectHandler } from "../../handlers/ProjectHandler";
 import { AuthRequest } from "../../types";
 import { ProjectUtil } from "../../utilities/ProjectUtil";
@@ -8,35 +7,9 @@ import { ErrorCodes } from "../../constants";
 import { UserHandler } from "../../handlers/UserHandler";
 import { DeleteFile } from "../../middlewares/DeleteFile";
 import { BugHandler } from "../../handlers/BugHandler";
+import { project, projectDeveloper, projectQA } from "../../interface/Project";
+import { user } from "../../interface/User";
 
-interface project extends Model {
-    id: number;
-    name: string;
-    description: string;
-    logo: string;
-    manager_id: number;
-}
-
-interface projectQA extends Model {
-    id: number,
-    project_id: number,
-    qa_id: number
-}
-
-interface projectDeveloper extends Model {
-    id: number,
-    project_id: number,
-    developer_id: number
-}
-
-interface user extends Model {
-    id: number,
-    email: string,
-    name: string,
-    password: string,
-    role: string,
-    number: string
-}
 
 
 export class ProjectManager {

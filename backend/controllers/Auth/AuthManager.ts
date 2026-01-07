@@ -2,45 +2,13 @@ import { Request, Response } from "express";
 import { UserHandler } from "../../handlers/UserHandler";
 import { Token } from "../../helpers";
 import { AuthUtil } from "../../utilities/AuthUtil";
+import { dataAfterLogIn, signUpData } from "../../interface/Auth";
+import { user } from "../../interface/User";
 
-interface signUpData {
-  email: string;
-  name: string;
-  password: string;
-  confirm_password: string;
-  number: string;
-  role: "manager" | "qa" | "developer";
-}
 
-interface userData {
-  id: number;
-  email: string;
-  name: string;
-  password: string;
-  number: string;
-  role: "manager" | "qa" | "developer";
-}
-
-interface logInData {
-  email: string;
-  password: string;
-}
-
-interface dataAfterLogIn {
-  id: number;
-  email: string;
-  name: string;
-  password: string;
-  number: string;
-  role: "manager" | "qa" | "developer";
-  setaccessToken: string;
-  setrefreshToken: string;
-  getaccessToken: string | "";
-  getrefreshToken: string | "";
-}
 
 export default class AuthManager {
-  static async signup(data: signUpData): Promise<userData> {
+  static async signup(data: signUpData): Promise<user> {
     AuthUtil.signUpDataCheck(data);
 
     let user = await UserHandler.findUserByEmail(data.email);
@@ -65,9 +33,6 @@ export default class AuthManager {
     const setAccessToken = Token.accessToken(res, user.id, user.role);
     const setRefreshToken = Token.refreshToken(res, user.id, user.role);
 
-    const getAccessToken = Token.getCookie(req, "accessToken");
-    const getRefreshToken = Token.getCookie(req, "refreshToken");
-
     const userWithToken: dataAfterLogIn = {
       id: user.id,
       email: user.email,
@@ -76,9 +41,7 @@ export default class AuthManager {
       number: user.number,
       role: user.role,
       setaccessToken: setAccessToken,
-      setrefreshToken: setRefreshToken,
-      getaccessToken: getAccessToken || "",
-      getrefreshToken: getRefreshToken || ""
+      setrefreshToken: setRefreshToken
     };
 
     return userWithToken;

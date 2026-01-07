@@ -3,13 +3,8 @@ import { ErrorCodes, UserConstants } from "../constants";
 import { Exception, Validators } from "../helpers";
 import { User } from "../constants/User";
 import { UserHandler } from "../handlers/UserHandler";
+import { addProduct } from "../interface/Project";
 
-interface addProduct {
-    name: string,
-    description: string,
-    QA: string[],
-    developer: string[]
-}
 
 const allowedExtensions = ["png", "gif"];
 

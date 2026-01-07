@@ -1,30 +1,11 @@
 import { db } from "../helpers";
-import { Model } from "sequelize";
+import { project, projectDeveloper, projectQA } from "../interface/Project";
 
 const projectModel = db.Project as any;
 
-const project_qa_Model = db.ProjectQA as any;
+const projectQaModel = db.ProjectQA as any;
 
-const project_developer_Model = db.ProjectDeveloper as any;
-
-interface project extends Model {
-    id: number;
-    name: string;
-    description: string;
-    logo: string;
-    manager_id: number;
-}
-
-interface projectQA extends Model {
-    id: number,
-    project_id: number,
-    qa_id: number
-}
-interface projectDeveloper extends Model {
-    id: number,
-    project_id: number,
-    developer_id: number
-}
+const projectDeveloperModel = db.ProjectDeveloper as any;
 
 export class ProjectHandler {
     static async addProject(name: string, description: string, logo: string, manager_id: number): Promise<project> {
@@ -55,25 +36,25 @@ export class ProjectHandler {
     }
 
     static async deleteQAProject(project_id: number): Promise<void> {
-        await project_qa_Model.destroy({
+        await projectQaModel.destroy({
             where: { project_id }
         })
     }
 
     static async deleteDeveloperProject(project_id: number): Promise<void> {
-        await project_developer_Model.destroy({
+        await projectDeveloperModel.destroy({
             where: { project_id }
         })
     }
 
     static async addQAForProject(project_id: number, qa_id: number): Promise<projectQA> {
-        return project_qa_Model.create({
+        return projectQaModel.create({
             project_id,
             qa_id
         })
     }
     static async addDeveloperForProject(project_id: number, developer_id: number): Promise<projectDeveloper> {
-        return project_developer_Model.create({
+        return projectDeveloperModel.create({
             project_id,
             developer_id
         })
@@ -87,14 +68,14 @@ export class ProjectHandler {
     }
 
     static async readQAProjects(qa_id: number): Promise<{ project_id: number }[]> {
-        return project_qa_Model.findAll({
+        return projectQaModel.findAll({
             where: { qa_id },
             attributes: ['project_id'],
             raw: true
         });
     }
     static async readDeveloperProjects(developer_id: number): Promise<{ project_id: number }[]> {
-        return project_developer_Model.findAll({
+        return projectDeveloperModel.findAll({
             where: { developer_id },
             attributes: ['project_id'],
             raw: true
@@ -126,7 +107,7 @@ export class ProjectHandler {
     }
     
     static async developer_Exist_For_Project(project_id: number, developer_id: number): Promise<project | null> {
-        return await project_developer_Model.findOne({
+        return await projectDeveloperModel.findOne({
             where: {
                 project_id,
                 developer_id
@@ -136,7 +117,7 @@ export class ProjectHandler {
     }
 
     static async getAllQAForProject(project_id: number): Promise<number[]> {
-        return project_qa_Model.findAll({
+        return projectQaModel.findAll({
             where: { project_id },
             attributes: ['qa_id'],
             raw: true
@@ -146,7 +127,7 @@ export class ProjectHandler {
 
 
     static async getAllDeveloperForProject(project_id: number): Promise<number[]> {
-        return project_developer_Model.findAll({
+        return projectDeveloperModel.findAll({
             where: { project_id },
             attributes: ['developer_id'],
             raw: true

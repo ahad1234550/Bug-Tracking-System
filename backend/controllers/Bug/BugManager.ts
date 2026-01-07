@@ -1,23 +1,11 @@
-import { Model } from "sequelize";
 import { BugHandler } from "../../handlers/BugHandler";
 import { AuthRequest } from "../../types";
 import { BugUtil } from "../../utilities/BugUtil";
 import { Exception } from "../../helpers";
 import { User } from "../../constants/User";
 import { ErrorCodes } from "../../constants";
+import { bug } from "../../interface/Bug";
 
-interface bug extends Model {
-    id: number,
-    title: string,
-    description: string,
-    deadline: Date,
-    screenshot: string,
-    type: "feature" | "bug",
-    status: "new" | "started" | "completed" | "resolved",
-    project_id: number,
-    qa_id: number,
-    developer_id: number
-}
 
 
 

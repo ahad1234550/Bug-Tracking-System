@@ -2,19 +2,9 @@ import { ErrorCodes, UserConstants } from "../constants";
 import { User } from "../constants/User";
 import { BugHandler } from "../handlers/BugHandler";
 import { ProjectHandler } from "../handlers/ProjectHandler";
-import { UserHandler } from "../handlers/UserHandler";
-import { Exception, Validators } from "../helpers";
+import { Exception } from "../helpers";
 import path from "path";
-
-interface addBug {
-    title: string,
-    description: string,
-    deadline: Date,
-    type: "feature" | "bug",
-    status: "new" | "started" | "completed" | "resolved",
-    project_id: string,
-    developer_id: string
-}
+import { addBug } from "../interface/Bug";
 
 const allowedExtensions = ["png", "gif"];
 

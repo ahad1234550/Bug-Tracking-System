@@ -1,18 +1,6 @@
 import { ErrorCodes, UserConstants } from "../constants";
 import { Exception, Validators } from "../helpers";
-
-interface user {
-    id: number,
-    email: string,
-    name: string,
-    password: string,
-    role: string,
-    number: string
-}
-
-interface updateProfile {
-    number: string
-}
+import { updateProfile, user } from "../interface/User";
 
 export class UserUtil {
     static userExistCheck(data: user | null): void {

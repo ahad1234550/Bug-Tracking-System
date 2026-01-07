@@ -1,19 +1,8 @@
 import { UserHandler } from "../../handlers/UserHandler";
 import { UserUtil } from "../../utilities/UserUtil";
 import { AuthRequest } from "../../types";
+import { updateProfile, user } from "../../interface/User";
 
-interface user {
-    id: number,
-    email: string,
-    name: string,
-    password: string,
-    role: string,
-    number: string
-}
-
-interface updateProfile {
-    number: string
-}
 
 export class UserManager {
     static async getProfile(req: AuthRequest): Promise<user> {

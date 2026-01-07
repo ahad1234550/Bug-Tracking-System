@@ -1,27 +1,8 @@
 import { db } from "../helpers";
-import { Model } from "sequelize";
+import { createUserParams, updateProfile, user } from "../interface/User";
 const UserModel = db.User as any;
 
-export interface user extends Model {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    number: string;
-    role: "manager" | "qa" | "developer";
-}
 
-interface createUserParams {
-    name: string,
-    email: string,
-    password: string,
-    number: string,
-    role: "manager" | "qa" | "developer"
-}
-
-interface updateProfile {
-    number: string
-}
 
 export class UserHandler {
     static async findUserByEmail(email: string): Promise<user | null> {
