@@ -142,11 +142,7 @@ export class ProjectManager {
 
         ProjectUtil.isAllowedForProject(user.role);
 
-        const data = req.body;
-
-        console.log("data: ",data);
-
-        const project_id = data.project_id;
+        const project_id = parseInt(req.params.projectId,10);
 
         console.log("project_id: ",project_id);
 

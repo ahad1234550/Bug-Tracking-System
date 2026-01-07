@@ -19,7 +19,7 @@ projectRouter.post(`${Project_Prefix}/edit`,
     fileUpload.single("logo"),
     (req: AuthRequest, res: Response) => ProjectController.editProject(req, res));
 
-projectRouter.post(`${Project_Prefix}/delete`, 
+projectRouter.delete(`${Project_Prefix}/delete/:projectId`, 
     (req: AuthRequest, res: Response, next: NextFunction) => User.authenticate(req, res, next),
     (req: AuthRequest, res: Response) => ProjectController.deleteProject(req, res));
 
