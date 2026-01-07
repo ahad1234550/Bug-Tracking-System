@@ -1,66 +1,41 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Link from "next/link";
+import { Briefcase01Icon, UserIcon } from "@hugeicons/core-free-icons/index";
+import { HugeiconsIcon } from '@hugeicons/react';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      <div>
+        <Image src="/signup.jpg" width={100} height={100}/>
+      </div>
+      <div>
+        <p>Already have an account? <a href="/signin">SignIn</a></p>
+        <div>
+          <h3>Join Us!</h3>
+          <p>To begin this journey, tell us what type of account you’d be opening.</p>
+          <div>
+            <div>
+              <HugeiconsIcon icon={UserIcon} />
+              <h5>Manager</h5>
+              <p>Signup as a manager to manage the tasks and bugs</p>
+            </div>
+            <div>
+              <HugeiconsIcon icon={UserIcon} />
+              <h5>Developer</h5>
+              <p>Signup as a Developer to assign the relevant task to QA</p>
+            </div>
+            <div>
+              <HugeiconsIcon icon={Briefcase01Icon} />
+              <h5>QA</h5>
+              <p>Signup as a QA to create the bugs and report in tasks</p>
+            </div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

@@ -1,0 +1,89 @@
+/* Header container */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5; /* light background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Left and Right sections */
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Left side: logo + nav */
+.header-left {
+  width: 50%;
+  justify-content: space-around;
+  gap: 40px; /* space between logo and nav links */
+}
+
+.logo-img {
+  width: 150px;
+  height: 30px;
+}
+
+/* Nav links + icons */
+.header-left nav {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* space between Projects and Bugs */
+}
+
+.header-left nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* space between icon and text */
+  cursor: pointer;
+}
+
+.header-left nav a:hover {
+  color: #0070f3; /* text hover color */
+}
+
+.header-left nav svg {
+  width: 20px;
+  height: 20px;
+  /* fill: #555; default icon color */
+  vertical-align: middle;
+}
+
+.header-left nav a:hover svg {
+  fill: #0070f3; /* icon hover color */
+}
+
+/* Right side: user container */
+.header-right {
+  width: 50%;
+  justify-content: flex-end;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  width: 20%; /* only 10% of right half */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px 10px;
+  gap: 15px;
+  background-color: #fff;
+  color: #333;
+}
+
+.user-container img {
+  border-radius: 50%; /* circular user icon */
+}
+
+.user-container p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+}
