@@ -1,0 +1,22 @@
+# Node / backend
+/backend/node_modules/
+/backend/dist/
+/backend/.env
+/backend/config/
+/backend/public/
+/backend/dist/
+/backend/build/
+/backend/.DS_Store
+/backend/logs/
+
+
+# Frontend (React / Next.js / Vue etc.)
+/frontend/node_modules/
+/frontend/.next/
+/frontend/build/
+/frontend/.env
+/frontend/public
+/frontend/.DS_Store
+/frontend/*.pem
+/frontend/build
+/frontend/.pnp
