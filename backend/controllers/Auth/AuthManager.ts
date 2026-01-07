@@ -3,7 +3,7 @@ import { UserHandler } from "../../handlers/UserHandler";
 import { Token } from "../../helpers";
 import { AuthUtil } from "../../utilities/AuthUtil";
 
-interface SignUpData {
+interface signUpData {
   email: string;
   name: string;
   password: string;
@@ -12,7 +12,7 @@ interface SignUpData {
   role: "manager" | "qa" | "developer";
 }
 
-interface UserData {
+interface userData {
   id: number;
   email: string;
   name: string;
@@ -21,12 +21,12 @@ interface UserData {
   role: "manager" | "qa" | "developer";
 }
 
-interface LogInData {
+interface logInData {
   email: string;
   password: string;
 }
 
-interface DataAfterLogIn {
+interface dataAfterLogIn {
   id: number;
   email: string;
   name: string;
@@ -40,27 +40,27 @@ interface DataAfterLogIn {
 }
 
 export default class AuthManager {
-  static async signup(data: SignUpData): Promise<UserData> {
+  static async signup(data: signUpData): Promise<userData> {
     AuthUtil.signUpDataCheck(data);
 
-    let user = await UserHandler.FindUserByEmail(data.email);
+    let user = await UserHandler.findUserByEmail(data.email);
     AuthUtil.emailExistCheck(user);
 
     data.password = await AuthUtil.hashPassword(data.password);
 
-    user = await UserHandler.SignUpUser(data);
+    user = await UserHandler.signUpUser(data);
     return user;
   }
 
-  static async login(req: Request, res: Response): Promise<DataAfterLogIn> {
+  static async login(req: Request, res: Response): Promise<dataAfterLogIn> {
     const data = req.body;
 
     AuthUtil.logInDataCheck(data);
 
-    let user = await UserHandler.FindUserByEmail(data.email);
+    let user = await UserHandler.findUserByEmail(data.email);
     AuthUtil.emailExistCheckLogin(user);
 
-    await AuthUtil.PasswordCompare(data.password, user.password);
+    await AuthUtil.passwordCompare(data.password, user.password);
 
     const setAccessToken = Token.accessToken(res, user.id, user.role);
     const setRefreshToken = Token.refreshToken(res, user.id, user.role);
@@ -68,7 +68,7 @@ export default class AuthManager {
     const getAccessToken = Token.getCookie(req, "accessToken");
     const getRefreshToken = Token.getCookie(req, "refreshToken");
 
-    const userWithToken: DataAfterLogIn = {
+    const userWithToken: dataAfterLogIn = {
       id: user.id,
       email: user.email,
       name: user.name,

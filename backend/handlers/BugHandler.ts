@@ -4,7 +4,7 @@ import { Model } from "sequelize";
 const bugModel = db.Bug as any;
 
 
-interface Bug extends Model {
+interface bug extends Model {
     id: number,
     title: string,
     description: string,
@@ -18,7 +18,7 @@ interface Bug extends Model {
 }
 
 export class BugHandler {
-    static async addBug(title: string, description: string, deadline: Date, type: "feature" | "bug", status: "new" | "started" | "completed" | "resolved", project_id: number, qa_id: number, screenshot: string, developer_id: number): Promise<Bug> {
+    static async addBug(title: string, description: string, deadline: Date, type: "feature" | "bug", status: "new" | "started" | "completed" | "resolved", project_id: number, qa_id: number, screenshot: string, developer_id: number): Promise<bug> {
         return bugModel.create({
             title,
             description,
@@ -32,14 +32,14 @@ export class BugHandler {
         })
     }
 
-    static async getManagerBug(project_id: number): Promise<Bug[]> {
+    static async getManagerBug(project_id: number): Promise<bug[]> {
         return bugModel.findAll({
             where: { project_id: project_id },
             raw: true
         })
     }
 
-    static async getQABug(qa_id: number, project_id: number): Promise<Bug[]> {
+    static async getQABug(qa_id: number, project_id: number): Promise<bug[]> {
         return bugModel.findAll({
             where: {
                 project_id,
@@ -49,7 +49,7 @@ export class BugHandler {
         })
     }
 
-    static async FindQABug(qa_id: number, id: number): Promise<Bug> {
+    static async findQABug(qa_id: number, id: number): Promise<bug> {
         return bugModel.findOne({
             where: {
                 id,
@@ -59,7 +59,7 @@ export class BugHandler {
         })
     }
 
-    static async getDeveloperBug(developer_id: number, project_id: number): Promise<Bug[]> {
+    static async getDeveloperBug(developer_id: number, project_id: number): Promise<bug[]> {
         return bugModel.findAll({
             where: {
                 project_id,
@@ -69,7 +69,7 @@ export class BugHandler {
         });
     }
 
-    static async FindDeveloperBug(developer_id: number, id: number): Promise<Bug> {
+    static async findDeveloperBug(developer_id: number, id: number): Promise<bug> {
         return bugModel.findOne({
             where: {
                 id,
@@ -79,7 +79,7 @@ export class BugHandler {
         })
     }
 
-    static async FindBugById(id: number): Promise<Bug> {
+    static async findBugById(id: number): Promise<bug> {
         return bugModel.findOne({
             where: {
                 id
@@ -88,7 +88,7 @@ export class BugHandler {
         })
     }
 
-    static async ChangeStatus(id: number, status: string) {
+    static async changeStatus(id: number, status: string) {
         const bug = await bugModel.findByPk(id);
 
         if (!bug) return null;

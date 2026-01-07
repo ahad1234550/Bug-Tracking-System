@@ -9,7 +9,7 @@ import { UserHandler } from "../../handlers/UserHandler";
 import { DeleteFile } from "../../middlewares/DeleteFile";
 import { BugHandler } from "../../handlers/BugHandler";
 
-interface Project extends Model {
+interface project extends Model {
     id: number;
     name: string;
     description: string;
@@ -17,19 +17,19 @@ interface Project extends Model {
     manager_id: number;
 }
 
-interface ProjectQA extends Model {
+interface projectQA extends Model {
     id: number,
     project_id: number,
     qa_id: number
 }
 
-interface ProjectDeveloper extends Model {
+interface projectDeveloper extends Model {
     id: number,
     project_id: number,
     developer_id: number
 }
 
-interface User extends Model {
+interface user extends Model {
     id: number,
     email: string,
     name: string,
@@ -40,7 +40,7 @@ interface User extends Model {
 
 
 export class ProjectManager {
-    static async addProject(req: AuthRequest): Promise<{ project: Project, QA: ProjectQA[], Developer: ProjectDeveloper[] }> {
+    static async addProject(req: AuthRequest): Promise<{ project: project, QA: projectQA[], developer: projectDeveloper[] }> {
 
         if (!req.file) {
             console.log("File not found");
@@ -71,17 +71,17 @@ export class ProjectManager {
             QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(project.id, parseInt(qa_id, 10)))
         );
 
-        const DeveloperStrings = Array.isArray(data.Developer) ? data.Developer : [data.Developer];
+        const developerStrings = Array.isArray(data.Developer) ? data.Developer : [data.Developer];
 
-        const Developer = await Promise.all(
-            DeveloperStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project.id, parseInt(developer_id, 10)))
+        const developer = await Promise.all(
+            developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project.id, parseInt(developer_id, 10)))
         );
 
-        return { project, QA, Developer };
+        return { project, QA, developer };
 
     }
 
-    static async editProject(req: AuthRequest): Promise<{ project: Project, QA: ProjectQA[], Developer: ProjectDeveloper[] }> {
+    static async editProject(req: AuthRequest): Promise<{ project: project, QA: projectQA[], developer: projectDeveloper[] }> {
         console.log("file:", req.file);
         const user = req.user;
 
@@ -91,7 +91,7 @@ export class ProjectManager {
 
         const project_id = parseInt(data.project_id as string, 10);
 
-        const projectCheck = await ProjectHandler.FindProjectByIdAndManager(project_id, user.id);
+        const projectCheck = await ProjectHandler.findProjectByIdAndManager(project_id, user.id);
 
         if (!projectCheck) {
             console.log("Project ID not found");
@@ -124,17 +124,17 @@ export class ProjectManager {
             QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(project_id, parseInt(qa_id, 10)))
         );
 
-        const DeveloperStrings = Array.isArray(data.Developer) ? data.Developer : [data.Developer];
+        const developerStrings = Array.isArray(data.developer) ? data.developer : [data.developer];
 
-        const Developer = await Promise.all(
-            DeveloperStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project_id, parseInt(developer_id, 10)))
+        const developer = await Promise.all(
+            developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project_id, parseInt(developer_id, 10)))
         );
 
-        return { project, QA, Developer };
+        return { project, QA, developer };
 
     }
 
-    static async deleteProject(req: AuthRequest): Promise<Project> {
+    static async deleteProject(req: AuthRequest): Promise<project> {
 
         const user = req.user;
 
@@ -146,7 +146,7 @@ export class ProjectManager {
 
         console.log("project_id: ",project_id);
 
-        const projectCheck = await ProjectHandler.FindProjectByIdAndManager(project_id, user.id);
+        const projectCheck = await ProjectHandler.findProjectByIdAndManager(project_id, user.id);
 
         console.log("project: ",projectCheck);
 
@@ -170,7 +170,7 @@ export class ProjectManager {
 
     }
 
-    static async readProjects(req: AuthRequest): Promise<Project[] | null> {
+    static async readProjects(req: AuthRequest): Promise<project[] | null> {
         const role = req.user.role;
 
         const id = req.user.id;
@@ -193,7 +193,7 @@ export class ProjectManager {
 
             const ids = project_ids.map(p => p.project_id);
 
-            const projects = await ProjectHandler.FindProjectByIds(ids)
+            const projects = await ProjectHandler.findProjectByIds(ids)
 
             if (!projects.length) {
                 console.log("No project found for your QA role. ID:", id);
@@ -211,7 +211,7 @@ export class ProjectManager {
 
             const ids = project_ids.map(p => p.project_id);
 
-            const projects = await ProjectHandler.FindProjectByIds(ids)
+            const projects = await ProjectHandler.findProjectByIds(ids)
 
             if (!projects.length) {
                 console.log("No project found for your QA role. ID:", id);
@@ -222,7 +222,7 @@ export class ProjectManager {
         }
     }
 
-    static async getAllAssociatedQA(req: AuthRequest): Promise<User[] | null> {
+    static async getAllAssociatedQA(req: AuthRequest): Promise<user[] | null> {
         const project_id = parseInt(req.query.project as string, 10);
 
         const qaRows = await ProjectHandler.getAllQAForProject(project_id);
@@ -237,16 +237,16 @@ export class ProjectManager {
             ).toJson();
         }
 
-        const users = await UserHandler.FindQARoleUser(qaIds);
+        const users = await UserHandler.findQARoleUser(qaIds);
 
         return users;
     }
 
-    static async getAllAssociatedDeveloper(req: AuthRequest): Promise<User[] | null> {
+    static async getAllAssociatedDeveloper(req: AuthRequest): Promise<user[] | null> {
         const project_id = parseInt(req.query.project as string, 10);
 
         const developerRows = await ProjectHandler.getAllDeveloperForProject(project_id);
-        const developerIds = developerRows.map((d: any) => d.developer_id);
+        const developerIds = developerRows.map((d:  any) => d.developer_id);
 
         if (developerIds.length === 0) {
             console.log("No QA found for this project");
@@ -257,7 +257,7 @@ export class ProjectManager {
             ).toJson();
         }
 
-        const users = await UserHandler.FindDeveloperRoleUser(developerIds);
+        const users = await UserHandler.findDeveloperRoleUser(developerIds);
 
         return users;
     }

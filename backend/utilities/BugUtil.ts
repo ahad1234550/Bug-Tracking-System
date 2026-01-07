@@ -16,7 +16,7 @@ interface addBug {
     developer_id: string
 }
 
-const ALLOWED_EXTENSIONS = ["png", "gif"];
+const allowedExtensions = ["png", "gif"];
 
 export class BugUtil {
     static isAllowedForBug(role: "manager" | "qa" | "developer" | string): void {
@@ -32,13 +32,13 @@ export class BugUtil {
             throw new Exception(UserConstants.MESSAGES.INVALID_DATA_TO_ADD_BUG, ErrorCodes.BAD_REQUEST, { reportError: true }).toJson();
         }
 
-        const project = await ProjectHandler.FindProjectById(parseInt(data.project_id, 10));
+        const project = await ProjectHandler.findProjectById(parseInt(data.project_id, 10));
         if (!project) {
             console.log('Invalid Project');
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.UNAUTHORIZED, { reportError: true }).toJson();
         }
 
-        const developer = await ProjectHandler.Developer_Exist_For_Project(parseInt(data.project_id, 10), parseInt(data.developer_id, 10));
+        const developer = await ProjectHandler.developer_Exist_For_Project(parseInt(data.project_id, 10), parseInt(data.developer_id, 10));
         if (!developer) {
             console.log('Invalid Developer');
             throw new Exception(User.MESSAGES.INVALID_Developer_ID, ErrorCodes.UNAUTHORIZED, { reportError: true }).toJson();
@@ -47,7 +47,7 @@ export class BugUtil {
 
     static checkImageType(file: string): boolean {
         const ext = path.extname(file).toLocaleLowerCase().slice(1);
-        if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        if (!allowedExtensions.includes(ext)) {
             return false;
         }
         return true;
@@ -59,7 +59,7 @@ export class BugUtil {
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
         }
 
-        const project = await ProjectHandler.FindProjectById(parseInt(project_id, 10));
+        const project = await ProjectHandler.findProjectById(parseInt(project_id, 10));
         if (!project) {
             console.log("Project not found for ID: ", project_id);
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
@@ -80,7 +80,7 @@ export class BugUtil {
 
         const id_bug = parseInt(bug_id, 10);
 
-        const bug = await BugHandler.FindBugById(id_bug);
+        const bug = await BugHandler.findBugById(id_bug);
 
         if (!bug) {
             console.log("Invalid bug Id!");
@@ -88,14 +88,14 @@ export class BugUtil {
         }
 
         if (role === "qa") {
-            const existQa = await BugHandler.FindQABug(id, id_bug);
+            const existQa = await BugHandler.findQABug(id, id_bug);
             if (!existQa) {
                 console.log("You are not assigned this bug!");
                 throw new Exception(User.MESSAGES.BUG_NOT_ASSIGNED, ErrorCodes.UNAUTHORIZED, { resultError: true }).toJson();
             }
         }
         if (role === "developer") {
-            const existDeveloper = await BugHandler.FindDeveloperBug(id, id_bug);
+            const existDeveloper = await BugHandler.findDeveloperBug(id, id_bug);
             if (!existDeveloper) {
                 console.log("You are not assigned this bug!");
                 throw new Exception(User.MESSAGES.BUG_NOT_ASSIGNED, ErrorCodes.UNAUTHORIZED, { resultError: true }).toJson();

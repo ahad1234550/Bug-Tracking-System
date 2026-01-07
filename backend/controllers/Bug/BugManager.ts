@@ -6,7 +6,7 @@ import { Exception } from "../../helpers";
 import { User } from "../../constants/User";
 import { ErrorCodes } from "../../constants";
 
-interface Bug extends Model {
+interface bug extends Model {
     id: number,
     title: string,
     description: string,
@@ -22,7 +22,7 @@ interface Bug extends Model {
 
 
 export class BugManager {
-    static async addBug(req: AuthRequest): Promise<{ bug: Bug }> {
+    static async addBug(req: AuthRequest): Promise<{ bug: bug }> {
         console.log("file:", req.file);
         const user = req.user;
 
@@ -38,14 +38,14 @@ export class BugManager {
 
         console.log("path", pathname);
 
-        const bug: Bug = await BugHandler.addBug(data.title, data.description, data.deadline, data.type, data.status, parseInt(data.project_id, 10), qa_id, pathname, parseInt(data.developer_id,10));
+        const bug: bug = await BugHandler.addBug(data.title, data.description, data.deadline, data.type, data.status, parseInt(data.project_id, 10), qa_id, pathname, parseInt(data.developer_id,10));
 
         console.log("Bug: ", bug);
 
         return { bug }
     }
 
-    static async readBug(req: AuthRequest): Promise<Bug[]> {
+    static async readBug(req: AuthRequest): Promise<bug[]> {
 
         let project_id: string | number | null = req.query.project as string;
 
@@ -64,7 +64,7 @@ export class BugManager {
         const role = req.user.role;
         const id = req.user.id;
 
-        let bugs: Bug[];
+        let bugs: bug[];
 
         if (role === "manager") {
             bugs = await BugHandler.getManagerBug(project_id);
@@ -101,7 +101,7 @@ export class BugManager {
 
         await BugUtil.checkStatusChangeData(status, bug_id, user.role, user.id);
 
-        const bug = await BugHandler.ChangeStatus(parseInt(bug_id,10), status);
+        const bug = await BugHandler.changeStatus(parseInt(bug_id,10), status);
 
         return bug;
     }

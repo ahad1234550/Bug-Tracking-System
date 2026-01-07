@@ -7,7 +7,7 @@ const project_qa_Model = db.ProjectQA as any;
 
 const project_developer_Model = db.ProjectDeveloper as any;
 
-interface Project extends Model {
+interface project extends Model {
     id: number;
     name: string;
     description: string;
@@ -15,19 +15,19 @@ interface Project extends Model {
     manager_id: number;
 }
 
-interface ProjectQA extends Model {
+interface projectQA extends Model {
     id: number,
     project_id: number,
     qa_id: number
 }
-interface ProjectDeveloper extends Model {
+interface projectDeveloper extends Model {
     id: number,
     project_id: number,
     developer_id: number
 }
 
 export class ProjectHandler {
-    static async addProject(name: string, description: string, logo: string, manager_id: number): Promise<Project> {
+    static async addProject(name: string, description: string, logo: string, manager_id: number): Promise<project> {
         return projectModel.create({
             name,
             description,
@@ -36,7 +36,7 @@ export class ProjectHandler {
         });
     }
 
-    static async updateProject(name: string, description: string, logo: string, id: number): Promise<Project> {
+    static async updateProject(name: string, description: string, logo: string, id: number): Promise<project> {
         const [affectedCount, updatedRows] = await projectModel.update(
             { name, description, logo },
             { where: { id }, returning: true }
@@ -66,20 +66,20 @@ export class ProjectHandler {
         })
     }
 
-    static async addQAForProject(project_id: number, qa_id: number): Promise<ProjectQA> {
+    static async addQAForProject(project_id: number, qa_id: number): Promise<projectQA> {
         return project_qa_Model.create({
             project_id,
             qa_id
         })
     }
-    static async addDeveloperForProject(project_id: number, developer_id: number): Promise<ProjectDeveloper> {
+    static async addDeveloperForProject(project_id: number, developer_id: number): Promise<projectDeveloper> {
         return project_developer_Model.create({
             project_id,
             developer_id
         })
     }
 
-    static async readManagerProjects(manager_id: number): Promise<Project[] | null> {
+    static async readManagerProjects(manager_id: number): Promise<project[] | null> {
         return projectModel.findAll({
             where: { manager_id },
             raw: true
@@ -101,21 +101,21 @@ export class ProjectHandler {
         });
     }
 
-    static async FindProjectByIds(ids: number[]): Promise<Project[]> {
+    static async findProjectByIds(ids: number[]): Promise<project[]> {
         return await projectModel.findAll({
             where: { id: ids },
             raw: true
         });
     }
 
-    static async FindProjectById(id: number): Promise<Project | null> {
+    static async findProjectById(id: number): Promise<project | null> {
         return await projectModel.findOne({
             where: { id },
             raw: true
         });
     }
 
-    static async FindProjectByIdAndManager(id: number, manager_id: number): Promise<Project | null> {
+    static async findProjectByIdAndManager(id: number, manager_id: number): Promise<project | null> {
         return await projectModel.findOne({
             where: { 
                 id,
@@ -125,7 +125,7 @@ export class ProjectHandler {
         });
     }
     
-    static async Developer_Exist_For_Project(project_id: number, developer_id: number): Promise<Project | null> {
+    static async developer_Exist_For_Project(project_id: number, developer_id: number): Promise<project | null> {
         return await project_developer_Model.findOne({
             where: {
                 project_id,
