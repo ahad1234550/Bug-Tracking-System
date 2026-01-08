@@ -1,0 +1,59 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid #ECECEE;
+  height: 95px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 5;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #787486;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-item svg {
+    width: 20px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #2F3367;
+}
+
+.header-right {
+  display: flex;
+  justify-content: end;
+  flex: 5;
+}
+
+.profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #F5F5F7;
+  padding: 6px 16px 6px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  border-radius: 50%;
+}
+
+.profile-name {
+  color: #2F3367;
+  font-weight: 600;
+  font-size: 15px;
+}
