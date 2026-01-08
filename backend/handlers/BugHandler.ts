@@ -18,9 +18,9 @@ export class BugHandler {
         })
     }
 
-    static async getManagerBug(project_id: number): Promise<bug[]> {
+    static async getManagerBug(projectId: number): Promise<bug[]> {
         return bugModel.findAll({
-            where: { project_id: project_id },
+            where: { project_id: projectId },
             raw: true
         })
     }

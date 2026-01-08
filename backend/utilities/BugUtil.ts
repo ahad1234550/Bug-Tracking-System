@@ -43,15 +43,15 @@ export class BugUtil {
         return true;
     }
 
-    static async checkProjectExist(project_id: string): Promise<void> {
-        if (isNaN(parseInt(project_id, 10))) {
+    static async checkProjectExist(projectId: string): Promise<void> {
+        if (isNaN(parseInt(projectId, 10))) {
             console.log("Wrong project id or NAN!");
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
         }
 
-        const project = await ProjectHandler.findProjectById(parseInt(project_id, 10));
+        const project = await ProjectHandler.findProjectById(parseInt(projectId, 10));
         if (!project) {
-            console.log("Project not found for ID: ", project_id);
+            console.log("Project not found for ID: ", projectId);
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
         }
     }

@@ -62,9 +62,9 @@ export class ProjectManager {
 
         const data = req.body;
 
-        const project_id = parseInt(req.params.projectId as string, 10);
+        const projectId = parseInt(req.params.projectId as string, 10);
 
-        const projectCheck = await ProjectHandler.findProjectByIdAndManager(project_id, user.id);
+        const projectCheck = await ProjectHandler.findProjectByIdAndManager(projectId, user.id);
 
         if (!projectCheck) {
             console.log("Project ID not found");
@@ -83,24 +83,24 @@ export class ProjectManager {
 
         console.log("path", pathname);
 
-        const project = await ProjectHandler.updateProject(data.name, data.description, pathname, project_id);
+        const project = await ProjectHandler.updateProject(data.name, data.description, pathname, projectId);
 
         console.log("project", project);
 
-        await ProjectHandler.deleteQAProject(project_id);
+        await ProjectHandler.deleteQAProject(projectId);
 
-        await ProjectHandler.deleteDeveloperProject(project_id);
+        await ProjectHandler.deleteDeveloperProject(projectId);
 
         const QAStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
 
         const QA = await Promise.all(
-            QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(project_id, parseInt(qa_id, 10)))
+            QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(projectId, parseInt(qa_id, 10)))
         );
 
         const developerStrings = Array.isArray(data.developer) ? data.developer : [data.developer];
 
         const developer = await Promise.all(
-            developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project_id, parseInt(developer_id, 10)))
+            developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(projectId, parseInt(developer_id, 10)))
         );
 
         return { project, QA, developer };
@@ -115,11 +115,11 @@ export class ProjectManager {
 
         ProjectUtil.isAllowedForProject(user.role);
 
-        const project_id = parseInt(req.params.projectId,10);
+        const projectId = parseInt(req.params.projectId,10);
 
-        console.log("project_id: ",project_id);
+        console.log("projectId: ",projectId);
 
-        const projectCheck = await ProjectHandler.findProjectByIdAndManager(project_id, user.id);
+        const projectCheck = await ProjectHandler.findProjectByIdAndManager(projectId, user.id);
 
         console.log("project: ",projectCheck);
 
@@ -128,13 +128,13 @@ export class ProjectManager {
             throw new Exception(User.MESSAGES.INVALID_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
         }
 
-        await BugHandler.deleteBugByProjectId(project_id);
+        await BugHandler.deleteBugByProjectId(projectId);
 
-        await ProjectHandler.deleteQAProject(project_id);
+        await ProjectHandler.deleteQAProject(projectId);
 
-        await ProjectHandler.deleteDeveloperProject(project_id);
+        await ProjectHandler.deleteDeveloperProject(projectId);
 
-        await ProjectHandler.deleteProjectById(project_id, user.id);
+        await ProjectHandler.deleteProjectById(projectId, user.id);
 
         const fileName = projectCheck.logo;
         DeleteFile.delete(fileName.replace("uploads/", ""));
@@ -158,13 +158,13 @@ export class ProjectManager {
 
         }
         else if (role === "qa") {
-            const project_ids = await ProjectHandler.readQAProjects(id);
-            if (!project_ids.length) {
+            const projectId = await ProjectHandler.readQAProjects(id);
+            if (!projectId.length) {
                 console.log("No project found for your QA role. ID:", id);
                 throw new Exception(User.MESSAGES.NO_PROJECT_FOUND, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
             }
 
-            const ids = project_ids.map(p => p.project_id);
+            const ids = projectId.map(p => p.project_id);
 
             const projects = await ProjectHandler.findProjectByIds(ids)
 
@@ -176,13 +176,13 @@ export class ProjectManager {
             return projects;
         }
         else {
-            const project_ids = await ProjectHandler.readDeveloperProjects(id);
-            if (!project_ids.length) {
+            const projectIds = await ProjectHandler.readDeveloperProjects(id);
+            if (!projectIds.length) {
                 console.log("No project found for your QA role. ID:", id);
                 throw new Exception(User.MESSAGES.NO_PROJECT_FOUND, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
             }
 
-            const ids = project_ids.map(p => p.project_id);
+            const ids = projectIds.map(p => p.project_id);
 
             const projects = await ProjectHandler.findProjectByIds(ids)
 
@@ -196,9 +196,9 @@ export class ProjectManager {
     }
 
     static async getAllAssociatedQA(req: AuthRequest): Promise<user[] | null> {
-        const project_id = parseInt(req.params.projectId as string, 10);
+        const projectId = parseInt(req.params.projectId as string, 10);
 
-        const qaRows = await ProjectHandler.getAllQAForProject(project_id);
+        const qaRows = await ProjectHandler.getAllQAForProject(projectId);
         const qaIds = qaRows.map((q: any) => q.qa_id);
 
         if (qaIds.length === 0) {
@@ -216,9 +216,9 @@ export class ProjectManager {
     }
 
     static async getAllAssociatedDeveloper(req: AuthRequest): Promise<user[] | null> {
-        const project_id = parseInt(req.params.projectId as string, 10);
+        const projectId = parseInt(req.params.projectId as string, 10);
 
-        const developerRows = await ProjectHandler.getAllDeveloperForProject(project_id);
+        const developerRows = await ProjectHandler.getAllDeveloperForProject(projectId);
         const developerIds = developerRows.map((d:  any) => d.developer_id);
 
         if (developerIds.length === 0) {

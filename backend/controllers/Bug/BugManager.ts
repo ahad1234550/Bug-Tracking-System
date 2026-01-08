@@ -37,11 +37,11 @@ export class BugManager {
 
         console.log(req.params.projectId);
 
-        let project_id: string | number = req.params.projectId as string;
+        let projectId: string | number = req.params.projectId as string;
 
-        console.log("Project: ", project_id)
+        console.log("Project: ", projectId)
 
-        if (!project_id) {
+        if (!projectId) {
             throw new Exception(
                 User.MESSAGES.INVALID_PROJECT,
                 ErrorCodes.BAD_REQUEST,
@@ -49,9 +49,9 @@ export class BugManager {
             );
         }
 
-        await BugUtil.checkProjectExist(project_id);
+        await BugUtil.checkProjectExist(projectId);
 
-        project_id = parseInt(project_id, 10);
+        projectId = parseInt(projectId, 10);
 
         const role = req.user.role;
         const id = req.user.id;
@@ -59,23 +59,23 @@ export class BugManager {
         let bugs: bug[];
 
         if (role === "manager") {
-            bugs = await BugHandler.getManagerBug(project_id);
+            bugs = await BugHandler.getManagerBug(projectId);
             if (!bugs.length) {
-                console.log("No bug found for manager. project ID: ", project_id)
+                console.log("No bug found for manager. project ID: ", projectId)
                 throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
             }
         }
         else if (role === "qa") {
-            bugs = await BugHandler.getQABug(id, project_id);
+            bugs = await BugHandler.getQABug(id, projectId);
             if (!bugs.length) {
-                console.log("No bug found for QA. project ID: ", project_id)
+                console.log("No bug found for QA. project ID: ", projectId)
                 throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
             }
         }
         else {
-            bugs = await BugHandler.getDeveloperBug(id, project_id);
+            bugs = await BugHandler.getDeveloperBug(id, projectId);
             if (!bugs.length) {
-                console.log("No bug found for Developer. project ID: ", project_id)
+                console.log("No bug found for Developer. project ID: ", projectId)
                 throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
             }
         }
