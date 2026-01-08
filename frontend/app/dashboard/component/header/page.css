@@ -2,9 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px 0px;
   border-bottom: 1px solid #ECECEE;
   height: 95px;
+  margin-bottom: 15px;
 }
 
 .header-left {
@@ -23,8 +24,9 @@
   transition: color 0.2s ease;
 }
 
-.nav-item svg {
+.plus-icon {
     width: 20px;
+    height: 20px;
 }
 
 .nav-item:hover,

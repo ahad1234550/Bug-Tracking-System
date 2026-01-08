@@ -20,7 +20,7 @@ export default function Header() {
           onClick={() => setActiveNav("projects")}
         >
           <Link href={"/dashboard/projects"}>
-            <FontAwesomeIcon icon={faLayerGroup} />
+            <FontAwesomeIcon icon={faLayerGroup} className="plus-icon"/>
             <span>Projects</span>
           </Link>
         </div>
@@ -30,7 +30,7 @@ export default function Header() {
           onClick={() => setActiveNav("bugs")}
         >
           <Link href={"/dashboard/7/bugs"}>
-            <FontAwesomeIcon icon={faListCheck} />
+            <FontAwesomeIcon icon={faListCheck} className="plus-icon"/>
             <span>Bugs</span>
           </Link>
         </div>

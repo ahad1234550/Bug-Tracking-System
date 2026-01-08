@@ -29,6 +29,7 @@ export default function Home() {
           <p className="subtitle">To begin this journey, tell us what type of account you'd be opening.</p>
 
           <div className="options-list">
+              <Link href={"/signup/manager"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
               <div className="text">
@@ -37,7 +38,9 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
+              </Link>
 
+              <Link href={"/signup/developer"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faBriefcase} /></div>
               <div className="text">
@@ -46,7 +49,9 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
+              </Link>
 
+              <Link href={"/signup/qa"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
               <div className="text">
@@ -55,6 +60,7 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
+              </Link>
           </div>
         </div>
       </div>

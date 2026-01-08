@@ -6,8 +6,14 @@ import { faUser, faEnvelope, faEye, faEyeSlash } from "@fortawesome/free-regular
 import { faMobileScreenButton, faLock, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Link from "next/link";
+import { notFound, useParams } from "next/navigation";
 
 export default function Signup() {
+    const params = useParams();
+    const role = params.role;
+    if(role !== "manager" && role !== "qa" && role !== "developer"){
+        notFound();
+    }
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     return (
@@ -28,6 +34,8 @@ export default function Signup() {
                     <p className="subtitle">Please fill your information below</p>
 
                     <form className="signup-form">
+
+                        <input type="hidden" name="role" value={role} />
 
                         <div className="input-group">
                             <label className="floating-label">Name</label>

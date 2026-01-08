@@ -1,0 +1,131 @@
+.sub-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    border-left: 4px solid #50A885;
+}
+
+.welcome-section {
+    flex: 1;
+}
+
+.welcome-section h2 {
+    font-size: 20px;
+    color: #000;
+    margin: 0;
+    font-weight: 700;
+}
+
+.welcome-section p {
+    font-size: 14px;
+    color: #8692A6;
+    margin: 4px 0 0 0;
+}
+
+.search-add-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.search-wrapper {
+    flex: 6;
+    position: relative;
+    justify-content: end;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8692A6;
+    font-size: 14px;
+}
+
+.search-input {
+    width: 70%;
+    padding: 12px 15px 12px 45px;
+    background-color: #F1F1F1;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    color: #2F3367;
+}
+
+.search-input::placeholder {
+    color: #8692A6;
+}
+
+.action-section {
+    flex: 4;
+    justify-content: end;
+}
+
+.add-bug-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.add-bug-btn:hover {
+    background-color: #2a6edb;
+}
+
+.plus-icon {
+    font-size: 12px;
+}
+
+.projects-list {
+    margin-left: auto;
+    margin-right: auto;
+    flex-flow: wrap;
+    justify-content: space-between;
+    width: 99%;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 0;
+    display: flex;
+}
+
+.project {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px 2px;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.project h3 {
+    color: #000;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.project p {
+    color: #87888C;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.project span {
+    font-weight: 900;
+}
