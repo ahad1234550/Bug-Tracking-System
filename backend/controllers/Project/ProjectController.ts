@@ -8,13 +8,13 @@ export class ProjectController {
 
     static async addProject(req: Request, res: Response): Promise<Response> {
         try {
-            const { project, QA, developer } = await ProjectManager.addProject(req);
+            const { project, qa, developer } = await ProjectManager.addProject(req);
 
             return res.json({
                 success: true,
                 data: {
                     project,
-                    QA,
+                    qa,
                     developer
                 }
             });
@@ -33,13 +33,13 @@ export class ProjectController {
 
     static async editProject(req: Request, res: Response): Promise<Response> {
         try {
-            const { project, QA, developer } = await ProjectManager.editProject(req);
+            const { project, qa, developer } = await ProjectManager.editProject(req);
 
             return res.json({
                 success: true,
                 data: {
                     project,
-                    QA,
+                    qa,
                     developer
                 }
             });

@@ -14,7 +14,7 @@ export class User {
       if (accessToken) {
         const decoded = jwt.verify(accessToken, config.secretKey) as {
           id: number;
-          role: string;
+          role: "manager" | "qa" | "developer";
         };
         req.user = {
           id: decoded.id,

@@ -14,19 +14,17 @@ export class BugManager {
         console.log("file:", req.file);
         const user = req.user;
 
-        BugUtil.isAllowedForBug(user.role);
-
         const data = req.body;
 
         await BugUtil.checkData(data, req.file?.filename);
 
-        const qa_id = user.id;
+        const qaId = user.id;
 
         const pathname = `uploads/${req.file?.filename}`;
 
         console.log("path", pathname);
 
-        const bug: bug = await BugHandler.addBug(data.title, data.description, data.deadline, data.type, data.status, parseInt(data.project_id, 10), qa_id, pathname, parseInt(data.developer_id,10));
+        const bug: bug = await BugHandler.addBug(data.title, data.description, data.deadline, data.type, data.status, parseInt(data.project_id, 10), qaId, pathname, parseInt(data.developer_id,10));
 
         console.log("Bug: ", bug);
 

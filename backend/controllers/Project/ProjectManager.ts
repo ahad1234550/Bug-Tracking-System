@@ -13,7 +13,7 @@ import { user } from "../../interface/User";
 
 
 export class ProjectManager {
-    static async addProject(req: AuthRequest): Promise<{ project: project, QA: projectQA[], developer: projectDeveloper[] }> {
+    static async addProject(req: AuthRequest): Promise<{ project: project, qa: projectQA[], developer: projectDeveloper[] }> {
 
         if (!req.file) {
             console.log("File not found");
@@ -21,8 +21,6 @@ export class ProjectManager {
         }
         console.log("file:", req.file);
         const user = req.user;
-
-        ProjectUtil.isAllowedForProject(user.role);
 
         const data = req.body;
 
@@ -38,10 +36,10 @@ export class ProjectManager {
 
         console.log("project", project);
 
-        const QAStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
+        const qaStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
 
-        const QA = await Promise.all(
-            QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(project.id, parseInt(qa_id, 10)))
+        const qa = await Promise.all(
+            qaStrings.map((qaId: string) => ProjectHandler.addQAForProject(project.id, parseInt(qaId, 10)))
         );
 
         const developerStrings = Array.isArray(data.developer) ? data.developer : [data.developer];
@@ -50,15 +48,13 @@ export class ProjectManager {
             developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(project.id, parseInt(developer_id, 10)))
         );
 
-        return { project, QA, developer };
+        return { project, qa, developer };
 
     }
 
-    static async editProject(req: AuthRequest): Promise<{ project: project, QA: projectQA[], developer: projectDeveloper[] }> {
+    static async editProject(req: AuthRequest): Promise<{ project: project, qa: projectQA[], developer: projectDeveloper[] }> {
         console.log("file:", req.file);
         const user = req.user;
-
-        ProjectUtil.isAllowedForProject(user.role);
 
         const data = req.body;
 
@@ -91,10 +87,10 @@ export class ProjectManager {
 
         await ProjectHandler.deleteDeveloperProject(projectId);
 
-        const QAStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
+        const qaStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
 
-        const QA = await Promise.all(
-            QAStrings.map((qa_id: string) => ProjectHandler.addQAForProject(projectId, parseInt(qa_id, 10)))
+        const qa = await Promise.all(
+            qaStrings.map((qaId: string) => ProjectHandler.addQAForProject(projectId, parseInt(qaId, 10)))
         );
 
         const developerStrings = Array.isArray(data.developer) ? data.developer : [data.developer];
@@ -103,7 +99,7 @@ export class ProjectManager {
             developerStrings.map((developer_id: string) => ProjectHandler.addDeveloperForProject(projectId, parseInt(developer_id, 10)))
         );
 
-        return { project, QA, developer };
+        return { project, qa, developer };
 
     }
 
@@ -112,8 +108,6 @@ export class ProjectManager {
         const user = req.user;
 
         console.log("user: ",user);
-
-        ProjectUtil.isAllowedForProject(user.role);
 
         const projectId = parseInt(req.params.projectId,10);
 

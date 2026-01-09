@@ -9,12 +9,6 @@ import { addProduct } from "../interface/Project";
 const allowedExtensions = ["png", "gif"];
 
 export class ProjectUtil {
-    static isAllowedForProject(role: "manager" | "qa" | "developer" | string): void {
-        if (role !== "manager") {
-            console.log("You cannot perform this operation. Role UnAutorized");
-            throw new Exception(UserConstants.MESSAGES.ROLE_UNAUTORIZED, ErrorCodes.UNAUTHORIZED, { reportError: true }).toJson();
-        }
-    }
 
     static async checkData(data: addProduct): Promise<void> {
         if (!data || !data.description || !data.name || !data.QA || !data.developer) {
@@ -22,9 +16,9 @@ export class ProjectUtil {
             throw new Exception(UserConstants.MESSAGES.INVALID_DATA_TO_ADD_PROJECT, ErrorCodes.BAD_REQUEST, { reportError: true }).toJson();
         }
 
-        const QAStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
+        const qaStrings = Array.isArray(data.QA) ? data.QA : [data.QA];
 
-        for (const id of QAStrings) {
+        for (const id of qaStrings) {
             const intId = parseInt(id, 10);
             if (Validators.isNaN(intId)) {
                 console.log('Invalid QA ID');

@@ -9,12 +9,6 @@ import { addBug } from "../interface/Bug";
 const allowedExtensions = ["png", "gif"];
 
 export class BugUtil {
-    static isAllowedForBug(role: "manager" | "qa" | "developer" | string): void {
-        if (role !== "qa") {
-            console.log("You cannot perform this operation. Role UnAutorized");
-            throw new Exception(UserConstants.MESSAGES.ROLE_UNAUTORIZED, ErrorCodes.UNAUTHORIZED, { reportError: true }).toJson();
-        }
-    }
 
     static async checkData(data: addBug, filename: string): Promise<void> {
         if (!data || !filename || !data.title || !data.description || !data.deadline || !data.type || !data.status || (isNaN(parseInt(data.project_id, 10))) || (isNaN(parseInt(data.developer_id, 10)))) {

@@ -3,6 +3,7 @@ import { User } from "../middlewares/User";
 import { AuthRequest } from "../types";
 import { fileUpload } from "../middlewares/FileUpload";
 import { BugController } from "../controllers/Bug/BugController";
+import { allowRoles } from "../middlewares/AllowRoles";
 
 
 const bug_Prefix = "/bug";
@@ -10,6 +11,7 @@ const bug_Prefix = "/bug";
 const bugRouter = express.Router();
 
 bugRouter.post(`${bug_Prefix}/addBug`, 
+    allowRoles("qa"),
     fileUpload.single("screenshot"),
     (req: AuthRequest, res: Response) => BugController.addBug(req, res));
 
