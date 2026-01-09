@@ -1,4 +1,3 @@
-import Image from "next/image";
 import "./page.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -7,18 +6,6 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="container">
-
-      <div className="image-wrapper">
-        <Image
-          className="image-section"
-          src={"/signup.jpg"}
-          fill
-          priority
-          alt="home"
-        />
-      </div>
-
       <div className="form-section">
         <header className="header">
           <p>Already have an account? <Link href={"/login"}>Sign In</Link></p>
@@ -64,6 +51,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }

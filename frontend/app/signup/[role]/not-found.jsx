@@ -1,11 +1,14 @@
 import Link from 'next/link';
-
+import "./page.css"
 export default function RoleNotFound() {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div className='form-section' style={{ color: 'black', flexDirection: 'column' }}>
       <h2>Role Not Found</h2>
       <p>The requested role does not exist.</p>
-      <Link href="/">Return Home</Link>
+      <div className="footer-text">
+        <Link href="/">Return Home</Link>
+      </div>
+
     </div>
   );
 }

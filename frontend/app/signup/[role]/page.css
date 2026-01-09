@@ -1,17 +1,3 @@
-.container {
-    display: flex;
-    min-height: 100vh;
-}
-
-.image-wrapper {
-    flex: 4;
-    position: relative;
-}
-
-.image-section {
-    object-fit: cover;
-}
-
 .form-section {
     flex: 6;
     background-color: #ffffff;

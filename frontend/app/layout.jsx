@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import "./app.css";
+import Image from "next/image";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -20,7 +21,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <div className="container">
+          <div className="image-wrapper">
+            <Image
+              className="image-section"
+              src={"/signup.jpg"}
+              fill
+              priority
+              alt="home"
+            />
+          </div>
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image";
 import "./page.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
@@ -10,16 +9,6 @@ import Link from "next/link";
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     return (
-        <div className="container">
-            <div className="image-wrapper">
-                <Image
-                    className="image-section"
-                    src={"/signup.jpg"}
-                    fill
-                    priority
-                    alt="home"
-                />
-            </div>
 
             <div className="form-section">
                 <div className="content">
@@ -61,6 +50,5 @@ export default function Login() {
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
