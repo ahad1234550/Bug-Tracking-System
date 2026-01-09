@@ -5,36 +5,107 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faEye, faEyeSlash, faLock, faChevronRight, faMobileScreenButton } from "@fortawesome/free-solid-svg-icons";
 import "./page.css"
-export default function SignupForm({ role }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-  return (
-    <div className="form-section">
+export default function SignupForm({ role }) {
+    const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+        role: role,
+        number: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("Form Data:", { ...formData });
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/auth/signup`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                }
+            );
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                console.error("Error:", errorData);
+                toast.error(errorData.message);
+                return;
+            }
+
+            const data = await res.json();
+            console.log("Success:", data);
+            toast.success("Signup Successfully");
+            setTimeout(() => {
+                router.push("/login");
+            }, 1500);
+
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
+    };
+
+    return (
+        <div className="form-section">
             <div className="content">
                 <h1>Sign Up</h1>
                 <p className="subtitle">Please fill your information below</p>
 
-                <form className="signup-form">
+                <form className="signup-form" onSubmit={handleSubmit}>
 
-                    <input type="hidden" name="role" value={role} />
 
                     <div className="input-group">
                         <label className="floating-label">Name</label>
                         <FontAwesomeIcon icon={faUser} className="input-icon" />
-                        <input type="text" placeholder="Name" />
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     <div className="input-group">
                         <label className="floating-label">Mobile number</label>
                         <FontAwesomeIcon icon={faMobileScreenButton} className="input-icon" />
-                        <input type="text" placeholder="Mobile number" />
+                        <input
+                            type="text"
+                            name="number"
+                            placeholder="Mobile number"
+                            value={formData.number}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     <div className="input-group">
                         <label className="floating-label">E-mail</label>
                         <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
-                        <input type="email" placeholder="E-mail" />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="E-mail"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
                     </div>
 
                     <div className="input-group">
@@ -42,7 +113,10 @@ export default function SignupForm({ role }) {
                         <FontAwesomeIcon icon={faLock} className="input-icon" />
                         <input
                             type={showPassword ? "text" : "password"}
+                            name="password"
                             placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
                         />
                         <FontAwesomeIcon
                             icon={showPassword ? faEyeSlash : faEye}
@@ -56,7 +130,10 @@ export default function SignupForm({ role }) {
                         <FontAwesomeIcon icon={faLock} className="input-icon" />
                         <input
                             type={showConfirmPassword ? "text" : "password"}
+                            name="confirm_password"
                             placeholder="Confirm Password"
+                            value={formData.confirm_password}
+                            onChange={handleChange}
                         />
                         <FontAwesomeIcon
                             icon={showConfirmPassword ? faEyeSlash : faEye}
@@ -73,10 +150,10 @@ export default function SignupForm({ role }) {
                 </form>
 
                 <div className="footer-text">
-                    Already have an account?
+                    Already have an account?{" "}
                     <Link href={"/login"}>Login to your account</Link>
                 </div>
             </div>
         </div>
-  );
+    );
 }

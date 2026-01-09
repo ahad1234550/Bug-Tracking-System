@@ -1,11 +1,11 @@
 "use client"
 import { faArrowUpShortWide, faBars, faBorderAll, faFilter, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./page.css"
+import "./bug.css"
 import { useState } from "react";
 import Grid from "./grid/page";
 import List from "./list/page";
-import AddBugModal from "./AddBugModal";
+import AddBugModal from "./add_bug_modal";
 
 export default function Projects() {
   const [view, setView] = useState("list");

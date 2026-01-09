@@ -7,11 +7,12 @@ import { AuthRequest } from "../types";
 
 export class User {
   static authenticate(req: AuthRequest, res: Response, next: NextFunction): Response | void {
-    
-    const accessToken = Token.getCookie(req, "accessToken");
 
-    try {
-      if (accessToken) {
+    const accessToken = Token.getCookie(req, "accessToken");
+    const refreshToken = Token.getCookie(req, "refreshToken");
+
+    if (accessToken) {
+      try {
         const decoded = jwt.verify(accessToken, config.secretKey) as {
           id: number;
           role: "manager" | "qa" | "developer";
@@ -21,9 +22,12 @@ export class User {
           role: decoded.role,
         };
         return next();
+      } catch (err) {
+        // Access token is invalid or expired, try refresh token
       }
+    }
 
-      const refreshToken = Token.getCookie(req, "refreshToken");
+    try {
       if (!refreshToken) {
         return res.status(ErrorCodes.UNAUTHORIZED).json({
           success: false,
@@ -31,7 +35,10 @@ export class User {
         });
       }
 
-      const decodedRefresh = jwt.verify(refreshToken, config.secretKey);
+      const decodedRefresh = jwt.verify(refreshToken, config.secretKey) as {
+        id: number;
+        role: "manager" | "qa" | "developer";
+      };
 
       Token.accessToken(res, decodedRefresh.id, decodedRefresh.role);
       Token.refreshToken(res, decodedRefresh.id, decodedRefresh.role);

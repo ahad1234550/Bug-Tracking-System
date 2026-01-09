@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from 'react';
-import './AddProjectModal.css';
+import './add_project_modal.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 

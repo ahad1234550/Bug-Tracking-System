@@ -1,10 +1,10 @@
 "use client";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./page.css"
+import "./project.css"
 import Image from "next/image";
 import { useState } from "react";
-import AddProjectModal from "./AddProjectModal";
+import AddProjectModal from "./add_project_modal";
 
 export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false);

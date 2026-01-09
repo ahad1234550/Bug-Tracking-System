@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
-import './AddBugModal.css';
+import './add_bug_modal.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCalendar, faCloudUploadAlt, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
 

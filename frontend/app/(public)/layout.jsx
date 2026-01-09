@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import "./app.css";
 import Image from "next/image";
 
@@ -14,6 +15,7 @@ export default function PublicLayout({ children }) {
         />
       </div>
       {children}
+      <ToastContainer />
     </div>
   );
 }
