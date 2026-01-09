@@ -4,10 +4,29 @@ import './AddProjectModal.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 
+const MOCK_QAS = [
+    { id: 'qa1', name: 'QA Person 1' },
+    { id: 'qa2', name: 'QA Person 2' },
+    { id: 'qa3', name: 'QA Person 3' },
+];
+
+const MOCK_DEVS = [
+    { id: 'dev1', name: 'Dev Person 1' },
+    { id: 'dev2', name: 'Dev Person 2' },
+    { id: 'dev3', name: 'Dev Person 3' },
+];
+
 export default function AddProjectModal({ isOpen, onClose }) {
     const fileInputRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [projectName, setProjectName] = useState("");
+    const [shortDetails, setShortDetails] = useState("");
+
+    const [selectedQAs, setSelectedQAs] = useState([]);
+    const [selectedDevs, setSelectedDevs] = useState([]);
+    const [isQAOpen, setIsQAOpen] = useState(false);
+    const [isDevOpen, setIsDevOpen] = useState(false);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -18,68 +37,145 @@ export default function AddProjectModal({ isOpen, onClose }) {
         }
     };
 
+    const toggleSelection = (id, currentList, setList) => {
+        if (currentList.includes(id)) {
+            setList(currentList.filter(item => item !== id));
+        } else {
+            setList([...currentList, id]);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
+            projectName,
+            shortDetails,
+            assignedQAs: selectedQAs,
+            assignedDevs: selectedDevs,
+            logo: selectedFile
+        };
+        console.log("Submitting Project:", formData);
+        onClose();
+    };
+
     if (!isOpen) return null;
 
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content" onClick={(e) => {
+                e.stopPropagation();
+                if (isQAOpen) setIsQAOpen(false);
+                if (isDevOpen) setIsDevOpen(false);
+            }}>
                 <div className="modal-header">
                     <h2>Add new Project</h2>
                 </div>
 
-                <div className="modal-body">
-                    <div className="form-section">
-                        <div className="form-group">
-                            <label>Project name</label>
-                            <input type="text" placeholder="Enter project name" />
-                        </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="modal-body">
+                        <div className="form-section">
+                            <div className="form-group">
+                                <label>Project name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter project name"
+                                    value={projectName}
+                                    onChange={(e) => setProjectName(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label>Short details</label>
-                            <input type="text" placeholder="Enter details here" />
-                        </div>
+                            <div className="form-group">
+                                <label>Short details</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter details here"
+                                    value={shortDetails}
+                                    onChange={(e) => setShortDetails(e.target.value)}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label>Assign to</label>
-                            <select defaultValue="">
-                                <option value="" disabled hidden>QA</option>
-                                <option value="qa1">QA 1</option>
-                                <option value="qa2">QA 2</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="upload-section">
-                        <div className="upload-box" onClick={() => fileInputRef.current.click()}>
-                            {previewUrl ? (
-                                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                                    <img
-                                        src={previewUrl}
-                                        alt="Logo Preview"
-                                        style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
-                                    />
+                            <div className="form-group" onClick={(e) => e.stopPropagation()}>
+                                <label>Assign to QA</label>
+                                <div className="custom-select" onClick={() => setIsQAOpen(!isQAOpen)}>
+                                    {selectedQAs.length > 0
+                                        ? <span>{selectedQAs.map(id => MOCK_QAS.find(q => q.id === id)?.name).join(", ")}</span>
+                                        : <span className="placeholder-text">Select QAs</span>
+                                    }
                                 </div>
-                            ) : (
-                                <>
-                                    <FontAwesomeIcon icon={faImage} className="upload-icon" />
-                                    <span className="upload-text">Upload logo</span>
-                                </>
-                            )}
-                            <input
-                                type="file"
-                                style={{ display: 'none' }}
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                accept="image/png, image/gif"
-                            />
+                                {isQAOpen && (
+                                    <div className="dropdown-menu">
+                                        {MOCK_QAS.map(qa => (
+                                            <div key={qa.id} className="dropdown-item" onClick={() => toggleSelection(qa.id, selectedQAs, setSelectedQAs)}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedQAs.includes(qa.id)}
+                                                    readOnly
+                                                />
+                                                {qa.name}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="form-group" onClick={(e) => e.stopPropagation()}>
+                                <label>Assign to Developers</label>
+                                <div className="custom-select" onClick={() => setIsDevOpen(!isDevOpen)}>
+                                    {selectedDevs.length > 0
+                                        ? <span>{selectedDevs.map(id => MOCK_DEVS.find(d => d.id === id)?.name).join(", ")}</span>
+                                        : <span className="placeholder-text">Select Developers</span>
+                                    }
+                                </div>
+                                {isDevOpen && (
+                                    <div className="dropdown-menu">
+                                        {MOCK_DEVS.map(dev => (
+                                            <div key={dev.id} className="dropdown-item" onClick={() => toggleSelection(dev.id, selectedDevs, setSelectedDevs)}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedDevs.includes(dev.id)}
+                                                    readOnly
+                                                />
+                                                {dev.name}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="upload-section">
+                            <div className="upload-box" onClick={() => fileInputRef.current.click()}>
+                                {previewUrl ? (
+                                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                        <img
+                                            src={previewUrl}
+                                            alt="Logo Preview"
+                                            style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <>
+                                        <FontAwesomeIcon icon={faImage} className="upload-icon" />
+                                        <span className="upload-text">Upload logo</span>
+                                    </>
+                                )}
+                                <input
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
+                                    accept="image/png, image/gif"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="modal-footer">
-                    <button className="btn-add">Add</button>
-                    <button className="btn-cancel" onClick={onClose}>Cancel</button>
-                </div>
+                    <div className="modal-footer">
+                        <button className="btn-add" type="submit">Add</button>
+                        <button className="btn-cancel" type="button" onClick={onClose}>Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     );
