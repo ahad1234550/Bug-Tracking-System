@@ -5,8 +5,12 @@ import "./page.css"
 import { useState } from "react";
 import Grid from "./grid/page";
 import List from "./list/page";
+import AddBugModal from "./AddBugModal";
+
 export default function Projects() {
   const [view, setView] = useState("list");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div>
       <div className="sub-header">
@@ -16,8 +20,8 @@ export default function Projects() {
         </div>
 
         <div className="add-container">
-          <button className="add-bug-btn">
-            <FontAwesomeIcon icon={faPlus}  className="plus-icon" />
+          <button className="add-bug-btn" onClick={() => setIsModalOpen(true)}>
+            <FontAwesomeIcon icon={faPlus} className="plus-icon" />
             Add New Bug
           </button>
         </div>
@@ -50,17 +54,19 @@ export default function Projects() {
           <div>
             <FontAwesomeIcon icon={faArrowUpShortWide} className="plus-icon-filter" />
           </div>
-          <div onClick={() => { setView("grid")}}>
+          <div onClick={() => { setView("grid") }}>
             <FontAwesomeIcon icon={faBorderAll} className="plus-icon-filter" />
           </div>
-          <div onClick={() => { setView("list")}}>
+          <div onClick={() => { setView("list") }}>
             <FontAwesomeIcon icon={faBars} className="plus-icon-filter" />
           </div>
         </div>
       </div>
 
-      { view === "list" && <List />}
-      { view === "grid" && <Grid />}
+      {view === "list" && <List />}
+      {view === "grid" && <Grid />}
+
+      <AddBugModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

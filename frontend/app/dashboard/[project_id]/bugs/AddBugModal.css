@@ -1,0 +1,266 @@
+.bug-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.bug-modal-content {
+    background: white;
+    width: 600px;
+    max-width: 95%;
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: black;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.bug-modal-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #000;
+    margin-top: 0;
+}
+
+.controls-row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -10px;
+    background-color: #ddd;
+    object-fit: cover;
+}
+
+.avatar:first-child {
+    margin-left: 0;
+}
+
+.add-avatar-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f0f2f5;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 5px;
+    color: #666;
+    position: relative;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 250px;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.dropdown-header {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #333;
+    font-weight: normal;
+    background: #f9f9f9;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-item:hover {
+    background-color: #f5f5f5;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #ccc;
+    object-fit: cover;
+}
+
+.user-name {
+    flex-grow: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+.user-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #007bff;
+}
+
+.date-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px dashed #ccc;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #999;
+}
+
+.title-input {
+    width: 100%;
+    border: 1px solid #F4F4F5;
+    border-radius: 6px;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    background-color: transparent;
+    margin-bottom: 20px;
+    outline: none;
+    padding: 5px;
+}
+
+.title-input::placeholder {
+    color: #e0e0e0;
+}
+
+.title-input:focus {
+    color: #333;
+}
+
+.detail-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.detail-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #F4F4F5;
+    border-radius: 6px;
+    font-size: 14px;
+    color: black;
+    background-color: transparent;
+    outline: none;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: none;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.upload-icon {
+    font-size: 32px;
+    color: #333;
+}
+
+.upload-text {
+    font-size: 16px;
+    color: #999;
+}
+
+.upload-link {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.bug-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.add-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 60px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+.add-btn:hover {
+    background-color: #0069d9;
+}
