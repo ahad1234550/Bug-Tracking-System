@@ -1,5 +1,5 @@
 
-.form-section {
+.form-section-home {
   flex: 6;
   background-color: #ffffff;
   display: flex;
@@ -7,43 +7,43 @@
   padding: 0;
 }
 
-.header {
+.form-section-home .header {
   text-align: right;
   padding: 40px 60px;
   font-size: 14px;
   color: #8692A6
 }
 
-.header a {
+.form-section-home .header a {
   color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   margin-left: 5px;
 }
-.content {
+.form-section-home .content {
   max-width: 480px;
   margin: auto;
   padding: 0 40px;
 }
 
-h1 {
+.form-section-home h1 {
   font-size: 32px;
   color: #2F3367;
   margin-bottom: 12px;
   font-weight: 700;
 }
 
-.subtitle {
+.form-section-home .subtitle {
   font-size: 16px;
   margin-bottom: 20px;
 }
-.options-list {
+.form-section-home .options-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.option-card {
+.form-section-home .option-card {
   display: flex;
   align-items: center;
   padding: 24px;
@@ -53,7 +53,7 @@ h1 {
   cursor: pointer;
   background: #fff;
 }
-.icon {
+.form-section-home .icon {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -65,40 +65,40 @@ h1 {
   border: 1px solid var(--primary);
 }
 
-.icon svg {
+.form-section-home .icon svg {
     width: 20px;
     height: 20px;
     color: var(--primary);
 }
 
-.blue-bg {
+.form-section-home .blue-bg {
   background-color: var(--primary);
   color: #fff;
 }
 
-.outline-blue {
+.form-section-home .outline-blue {
   border: 1.5px solid #e2e8f0;
   color: var(--primary);
 }
 
-.text {
+.form-section-home .text {
   flex-grow: 1;
 }
 
-.text h3 {
+.form-section-home .text h3 {
   font-size: 18px;
   color: #1a202c;
   margin-bottom: 4px;
 }
 
-p {
+.form-section-home p {
   font-size: 14px;
   color: #8692A6;
   line-height: 1.4;
   margin: 0;
 }
 
-.arrow {
+.form-section-home .arrow {
   color: var(--primary);
   font-size: 14px;
 }

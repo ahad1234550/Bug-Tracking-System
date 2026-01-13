@@ -1,4 +1,3 @@
-import "./page.css";
 import { notFound } from "next/navigation";
 import SignupForm from "./signupForm";
 

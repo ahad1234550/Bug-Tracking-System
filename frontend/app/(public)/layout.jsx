@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function PublicLayout({ children }) {
   return (
-    <div className="container">
+    <div className="container-layout">
       <div className="image-wrapper">
         <Image
           className="image-section"

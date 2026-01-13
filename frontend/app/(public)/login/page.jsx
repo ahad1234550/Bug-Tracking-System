@@ -54,7 +54,7 @@ export default function Login() {
     }
 
     return (
-        <div className="form-section">
+        <div className="form-section-login">
             <div className="content">
                 <h1>Login</h1>
                 <p className="subtitle">Please enter your login details</p>

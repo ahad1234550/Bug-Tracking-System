@@ -62,7 +62,7 @@ export default function SignupForm({ role }) {
     };
 
     return (
-        <div className="form-section">
+        <div className="form-section-signup">
             <div className="content">
                 <h1>Sign Up</h1>
                 <p className="subtitle">Please fill your information below</p>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-import './add_project_modal.css';
+import './edit_project_modal.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { toast } from 'react-toastify';
@@ -181,7 +181,7 @@ export default function EditProjectModal({ isOpen, onClose, project }) {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-overlay-edit-project" onClick={onClose}>
             <div className="modal-content" onClick={(e) => {
                 e.stopPropagation();
                 if (isQAOpen) setIsQAOpen(false);

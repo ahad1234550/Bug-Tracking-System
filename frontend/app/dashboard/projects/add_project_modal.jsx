@@ -82,7 +82,7 @@ export default function AddProjectModal({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-overlay-add-project" onClick={onClose}>
             <div className="modal-content" onClick={(e) => {
                 e.stopPropagation();
                 if (isQAOpen) setIsQAOpen(false);

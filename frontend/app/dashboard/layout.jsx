@@ -12,10 +12,10 @@ export default function DashboardLayout({ children }) {
   if (!isLoggedIn) return null;
 
   return (
-    <>
+    <div className="body">
       <Header />
       <main>{children}</main>
       <ToastContainer />
-    </>
+    </div>
   );
 }

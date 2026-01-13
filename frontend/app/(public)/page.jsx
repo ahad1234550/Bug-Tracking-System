@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="form-section">
+    <div className="form-section-home">
       <header className="header">
         <p>Already have an account? <Link href={"/login"}>Sign In</Link></p>
       </header>

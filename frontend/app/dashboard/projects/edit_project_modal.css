@@ -1,4 +1,4 @@
-.modal-overlay-add-project {
+.modal-overlay-edit-project {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.modal-overlay-add-project .modal-content {
+.modal-overlay-edit-project .modal-content {
     background: white;
     padding: 30px;
     border-radius: 8px;
@@ -21,39 +21,39 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.modal-overlay-add-project .modal-header h2 {
+.modal-overlay-edit-project .modal-header h2 {
     margin: 0 0 20px 0;
     font-size: 18px;
     font-weight: bold;
     color: #1a1a1a;
 }
 
-.modal-overlay-add-project .modal-body {
+.modal-overlay-edit-project .modal-body {
     display: flex;
     gap: 30px;
 }
 
-.modal-overlay-add-project .form-section {
+.modal-overlay-edit-project .form-section {
     flex: 1.5;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.modal-overlay-add-project .form-group {
+.modal-overlay-edit-project .form-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
     position: relative;
 }
 
-.modal-overlay-add-project .form-group label {
+.modal-overlay-edit-project .form-group label {
     font-size: 14px;
     color: #333;
 }
 
-.modal-overlay-add-project .form-group input,
-.modal-overlay-add-project .form-group select {
+.modal-overlay-edit-project .form-group input,
+.modal-overlay-edit-project .form-group select {
     background-color: transparent;
     padding: 10px;
     border: 1px solid #e0e0e0;
@@ -63,11 +63,11 @@
     outline: none;
 }
 
-.modal-overlay-add-project .form-group input::placeholder {
+.modal-overlay-edit-project .form-group input::placeholder {
     color: #999;
 }
 
-.modal-overlay-add-project .custom-select {
+.modal-overlay-edit-project .custom-select {
     background-color: transparent;
     padding: 10px;
     border: 1px solid #e0e0e0;
@@ -81,11 +81,11 @@
     min-height: 42px;
 }
 
-.modal-overlay-add-project .placeholder-text {
+.modal-overlay-edit-project .placeholder-text {
     color: #999;
 }
 
-.modal-overlay-add-project .dropdown-menu {
+.modal-overlay-edit-project .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -100,7 +100,7 @@
     overflow-y: auto;
 }
 
-.modal-overlay-add-project .dropdown-item {
+.modal-overlay-edit-project .dropdown-item {
     padding: 8px 10px;
     display: flex;
     align-items: center;
@@ -110,18 +110,18 @@
     color: #333;
 }
 
-.modal-overlay-add-project .dropdown-item:hover {
+.modal-overlay-edit-project .dropdown-item:hover {
     background-color: #f5f5f5;
 }
 
-.modal-overlay-add-project .dropdown-item input[type="checkbox"] {
+.modal-overlay-edit-project .dropdown-item input[type="checkbox"] {
     margin: 0;
     width: 16px;
     height: 16px;
     accent-color: #007bff;
 }
 
-.modal-overlay-add-project .upload-section {
+.modal-overlay-edit-project .upload-section {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -129,7 +129,7 @@
     padding-top: 25px;
 }
 
-.modal-overlay-add-project .upload-box {
+.modal-overlay-edit-project .upload-box {
     width: 100%;
     height: 150px;
     border: 2px dashed #ccc;
@@ -143,24 +143,24 @@
     background-color: #fafafa;
 }
 
-.modal-overlay-add-project .upload-icon {
+.modal-overlay-edit-project .upload-icon {
     font-size: 40px;
     color: #9ca3af;
     margin-bottom: 10px;
 }
 
-.modal-overlay-add-project .upload-text {
+.modal-overlay-edit-project .upload-text {
     font-size: 14px;
     color: #4b5563;
 }
 
-.modal-overlay-add-project .modal-footer {
+.modal-overlay-edit-project .modal-footer {
     display: flex;
     gap: 15px;
     margin-top: 30px;
 }
 
-.modal-overlay-add-project .btn-add {
+.modal-overlay-edit-project .btn-add {
     background-color: #007bff;
     color: white;
     border: none;
@@ -171,11 +171,11 @@
     font-weight: bold;
 }
 
-.modal-overlay-add-project .btn-add:hover {
+.modal-overlay-edit-project .btn-add:hover {
     background-color: #0056b3;
 }
 
-.modal-overlay-add-project .btn-cancel {
+.modal-overlay-edit-project .btn-cancel {
     background-color: white;
     color: #333;
     border: 1px solid #ccc;
@@ -185,6 +185,6 @@
     font-size: 14px;
 }
 
-.modal-overlay-add-project .btn-cancel:hover {
+.modal-overlay-edit-project .btn-cancel:hover {
     background-color: #f5f5f5;
 }

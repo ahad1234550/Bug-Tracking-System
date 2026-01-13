@@ -1,14 +1,14 @@
-.container {
+.container-layout {
     display: flex;
     min-height: 100vh;
     width: 100%;
 }
 
-.image-wrapper {
+.container-layout .image-wrapper {
     flex: 4;
     position: relative;
 }
 
-.image-section {
+.container-layout .image-section {
     object-fit: cover;
 }

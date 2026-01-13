@@ -8,6 +8,7 @@ import List from "./list/page";
 import AddBugModal from "./add_bug_modal";
 import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function Bugs() {
   const [view, setView] = useState("list");
@@ -58,7 +59,7 @@ export default function Bugs() {
     <div className="bugs-page-container">
       <div className="sub-header">
         <div className="welcome-section">
-          <p>Projects &nbsp; &nbsp; &gt; &nbsp; &nbsp; Bugs</p>
+          <p><Link href={"/dashboard/projects"}>Projects</Link> &nbsp; &nbsp; &gt; &nbsp; &nbsp; Bugs</p>
           <h2>All Bugs Listing</h2>
         </div>
 

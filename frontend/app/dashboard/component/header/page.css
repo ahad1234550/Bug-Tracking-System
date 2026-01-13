@@ -63,4 +63,5 @@
 .user-dropdowns{
   color: black;
   border: 1px solid black;
+  cursor: pointer;
 }

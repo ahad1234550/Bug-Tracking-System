@@ -1,4 +1,4 @@
-.form-section {
+.form-section-login {
   flex: 6;
   background-color: #ffffff;
   display: flex;
@@ -6,34 +6,34 @@
   justify-content: center;
 }
 
-.content {
+.form-section-login .content {
   width: 100%;
   max-width: 450px;
   padding: 40px;
 }
 
-svg {
+.form-section-login svg {
   width: 20px;
 }
 
-h1 {
+.form-section-login h1 {
   font-size: 28px;
   color: #2F3367;
   margin-bottom: 8px;
 }
 
-.subtitle {
+.form-section-login .subtitle {
   color: #8692A6;
   margin-bottom: 30px;
 }
 
-.login-form {
+.form-section-login .login-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.input-group {
+.form-section-login .input-group {
   position: relative;
   display: flex;
   align-items: center;
@@ -44,13 +44,13 @@ h1 {
   transition: all 0.25s ease;
 }
 
-.input-group:focus-within,
-.input-group:has(input:not(:placeholder-shown)) {
+.form-section-login .input-group:focus-within,
+.form-section-login .input-group:has(input:not(:placeholder-shown)) {
   background-color: #ffffff;
   border-color: var(--primary);
 }
 
-.floating-label {
+.form-section-login .floating-label {
   position: absolute;
   top: -9px;
   left: 20px;
@@ -65,13 +65,13 @@ h1 {
   pointer-events: none;
 }
 
-.input-group:focus-within .floating-label,
-.input-group:has(input:not(:placeholder-shown)) .floating-label {
+.form-section-login .input-group:focus-within .floating-label,
+.form-section-login .input-group:has(input:not(:placeholder-shown)) .floating-label {
   opacity: 1;
   transform: scale(1);
 }
 
-.input-group input {
+.form-section-login .input-group input {
   border: none;
   background: transparent;
   width: 100%;
@@ -80,22 +80,22 @@ h1 {
   color: #2F3367;
 }
 
-.input-group input::placeholder {
+.form-section-login .input-group input::placeholder {
   color: #8692A6;
 }
 
-.input-icon {
+.form-section-login .input-icon {
   color: #8692A6;
   width: 18px;
   margin-right: 15px;
 }
 
-.password-toggle {
+.form-section-login .password-toggle {
   cursor: pointer;
   color: #8692A6;
 }
 
-.login-btn {
+.form-section-login .login-btn {
   width: 50%;
   margin-top: 15px;
   background-color: var(--primary);
@@ -111,14 +111,14 @@ h1 {
   cursor: pointer;
 }
 
-.footer-text {
+.form-section-login .footer-text {
   margin-top: 30px;
   text-align: center;
   font-size: 14px;
   color: #8692A6;
 }
 
-.footer-text a {
+.form-section-login .footer-text a {
   color: var(--primary);
   text-decoration: none;
   font-weight: 700;
