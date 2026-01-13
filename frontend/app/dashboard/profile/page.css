@@ -6,7 +6,7 @@
 }
 
 .profile-header {
-    margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 .profile-header h2 {
@@ -32,19 +32,19 @@
 
 .field-icon {
     color: #A0AEC0;
-    font-size: 20px;
-    width: 20px;
+    height: 20px;
+    width: 16px;
 }
 
 .field-icon-dark {
     color: #2D3748;
-    font-size: 20px;
-    width: 20px;
+    height: 20px;
+    width: 16px;
 }
 
 .field-text {
-    color: #718096;
-    font-size: 18px;
+    color: #8B8FA8;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -64,7 +64,6 @@
     padding: 0 8px;
     color: #4A5568;
     font-size: 14px;
-    font-weight: 600;
 }
 
 .input-wrapper {
@@ -76,19 +75,20 @@
 .number-input {
     border: none;
     outline: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: #2D3748;
+    color: black;
+    font-size: 16px;
     width: 100%;
     background: transparent;
 }
 
 .action-area {
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .update-btn {
-    width: auto;
+    width: 45%;
     background-color: var(--primary);
     color: white;
     padding: 12px 40px;
@@ -100,14 +100,20 @@
     transition: background 0.2s;
 }
 
-.update-btn:hover:not(:disabled) {
-    background-color: #1A202C;
+.cancel-btn {
+    width: 45%;
+    background-color: white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
 }
 
-.update-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
 
 .loading-container,
 .error-container {

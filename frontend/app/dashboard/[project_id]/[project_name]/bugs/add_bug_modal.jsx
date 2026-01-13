@@ -5,12 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCalendar, faCloudUploadAlt, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
 import { toast } from 'react-toastify';
 
-const MOCK_USERS = [
-  { id: 1, name: "John Michael" },
-  { id: 2, name: "Harry Johnson" },
-  { id: 3, name: "Lana Sapphire" },
-  { id: 4, name: "Joerg Peterson" },
-];
 
 export default function AddBugModal({ isOpen, onClose, projectId, onBugAdded }) {
   const fileInputRef = useRef(null);

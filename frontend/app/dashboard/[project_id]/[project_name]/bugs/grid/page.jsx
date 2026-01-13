@@ -74,11 +74,11 @@ function Grid({ bugs, onBugUpdate }) {
                             <div className="project-detail">
                                 <div className="due-date">
                                     <p className="heading-short">Due Date</p>
-                                    <p><FontAwesomeIcon icon={faCalendar} style={{ fontSize: '14px' }} />{format(new Date(bug.deadline), "dd-MM-yyyy")}</p>
+                                    <p className="dynamic-short"><FontAwesomeIcon icon={faCalendar} style={{ width: '18px', height: '20px', marginRight: '7px' }} />{format(new Date(bug.deadline), "dd-MM-yyyy")}</p>
                                 </div>
                                 <div className="assign-to">
                                     <p className="heading-short">Assign to</p>
-                                    <p>{bug.developer_name}</p>
+                                    <p className="dynamic-short">{bug.developer_name}</p>
                                 </div>
                             </div>
 

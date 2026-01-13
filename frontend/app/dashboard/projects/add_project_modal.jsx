@@ -10,9 +10,9 @@ export default function AddProjectModal({ isOpen, onClose }) {
 
     const { qa, developer, loadUsers } = useProject();
 
-  useEffect(() => {
-    if (isOpen) loadUsers();
-  }, [isOpen, loadUsers]);
+    useEffect(() => {
+        if (isOpen) loadUsers();
+    }, [isOpen, loadUsers]);
 
     const fileInputRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -193,8 +193,11 @@ export default function AddProjectModal({ isOpen, onClose }) {
                     </div>
 
                     <div className="modal-footer">
-                        <button className="btn-add" type="submit">Add</button>
-                        <button className="btn-cancel" type="button" onClick={onClose}>Cancel</button>
+                        <div className='btn'>
+                            <button className="btn-add" type="submit">Add</button>
+                            <button className="btn-cancel" type="button" onClick={onClose}>Cancel</button>
+                        </div>
+                        <div className='non-btn'></div>
                     </div>
                 </form>
             </div>

@@ -63,7 +63,7 @@ function List({ bugs, onBugUpdate }) {
             {bugs && bugs.length > 0 ? (
               bugs.map((bug) => (
                 <tr key={bug.id}>
-                  <td onClick={() => handleDescriptionClick(bug)} style={{ cursor: "pointer" }}>{bug.description}</td>
+                  <td onClick={() => handleDescriptionClick(bug)} style={{ cursor: "pointer" }}><span className={`stat ${bug.status}`}></span>&nbsp;{bug.description}</td>
 
                   <td>
                     <span className={`status ${bug.status}`}>

@@ -16,14 +16,19 @@
     background-color: #F9FAFC;
 }
 
+tr {
+    height: 56px;
+}
+
 .bugs-page-container thead th {
     padding: 12px 16px;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 600;
     text-transform: uppercase;
     color: #3A3541DE;
     text-align: center;
     border-right: 1px solid rgb(170, 170, 170);
+    padding: 10px !important;
 }
 
 .bugs-page-container thead th:first-child {
@@ -44,6 +49,8 @@
 
 .bugs-page-container tbody td:first-child {
     text-align: left;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .bugs-page-container tbody td:last-child {
@@ -75,10 +82,10 @@
 
 .bugs-page-container .status {
     display: inline-block;
-    padding: 2px 6px;
+    padding: 4px 8px;
     font-size: 12px;
-    border-radius: 12px;
-    font-weight: 600;
+    border-radius: 6px;
+    font-weight: 500;
 }
 
 .bugs-page-container .status.started {
@@ -101,6 +108,38 @@
     color: #151c57;
 }
 
+.bugs-page-container .stat.started {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: #EC5962;
+}
+
+.bugs-page-container .stat.completed {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: #155724;
+}
+
+.bugs-page-container .stat.new {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: #3069FE;
+}
+
+.bugs-page-container .stat.resolved {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: #151c57;
+}
+
 .bugs-page-container .avatar {
     width: 20px;
     height: 20px;
@@ -108,7 +147,6 @@
     border-radius: 50%;
 }
 
-/* Clickable description hover effect */
 .bugs-page-container tbody td[style*="cursor: pointer"]:hover {
     background-color: #f5f5f5;
     text-decoration: underline;

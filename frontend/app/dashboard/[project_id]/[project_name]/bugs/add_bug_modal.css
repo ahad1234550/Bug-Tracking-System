@@ -39,7 +39,7 @@
 }
 
 .bug-modal-header h2 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 25px;
     color: #000;
@@ -61,8 +61,9 @@
 }
 
 .control-label {
-    font-size: 14px;
-    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
 }
 
 .avatar-group {
@@ -150,8 +151,9 @@
 
 .user-name {
     flex-grow: 1;
-    font-size: 14px;
-    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
 }
 
 .user-checkbox {
@@ -178,8 +180,8 @@
     width: 100%;
     border: 1px solid #F4F4F5;
     border-radius: 6px;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 35px;
+    font-weight: 500;
     color: black;
     background-color: transparent;
     margin-bottom: 20px;
@@ -197,8 +199,8 @@
 
 .detail-label {
     display: block;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-family: 400;
     margin-bottom: 10px;
     color: #000;
 }
@@ -216,15 +218,13 @@
 }
 
 .upload-area {
-    border: none;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
     cursor: pointer;
-    margin-bottom: 30px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20%;
+    display: flex;
 }
 
 .upload-icon {

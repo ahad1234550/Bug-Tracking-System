@@ -147,6 +147,8 @@ export default function SignupForm({ role }) {
 
                 </form>
 
+                <div className="divider"></div>
+
                 <div className="footer-text">
                     Already have an account?{" "}
                     <Link href={"/login"}>Login to your account</Link>
