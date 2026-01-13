@@ -4,27 +4,102 @@ import './add_project_modal.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { toast } from 'react-toastify';
-import useProject from './use_project';
 
-export default function AddProjectModal({ isOpen, onClose }) {
+export default function EditProjectModal({ isOpen, onClose, project }) {
 
-    const { qa, developer, loadUsers } = useProject();
-
-  useEffect(() => {
-    if (isOpen) loadUsers();
-  }, [isOpen, loadUsers]);
-
+    const [qa, setQA] = useState([]);
+    const [developer, setDeveloper] = useState([]);
     const fileInputRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [projectName, setProjectName] = useState("");
     const [shortDetails, setShortDetails] = useState("");
-
     const [selectedQAs, setSelectedQAs] = useState([]);
     const [selectedDevs, setSelectedDevs] = useState([]);
     const [isQAOpen, setIsQAOpen] = useState(false);
     const [isDevOpen, setIsDevOpen] = useState(false);
 
+    useEffect(() => {
+        const getQA = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/getAllQA`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!res.ok) throw new Error("Failed to fetch QAs");
+                const data = await res.json();
+                setQA(data.data);
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
+        };
+        const getDeveloper = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/getAllDeveloper`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (!res.ok) throw new Error("Failed to fetch Developers");
+                const data = await res.json();
+                setDeveloper(data.data);
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
+        };
+
+        if (isOpen) {
+            getQA();
+            getDeveloper();
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (project && isOpen) {
+            setProjectName(project.name || "");
+            setShortDetails(project.description || "");
+            if (project.logo) {
+                setPreviewUrl(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/${project.logo}`);
+            } else {
+                setPreviewUrl(null);
+            }
+            setSelectedFile(null);
+
+            const getAssociatedQA = async () => {
+                try {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/getAllAssociatedQA`, {
+                        method: "GET",
+                        credentials: "include",
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        const ids = data.data?.map(u => u.id) || [];
+                        setSelectedQAs(ids);
+                    }
+                } catch (error) {
+                    console.error("Fetch associated QA error:", error);
+                }
+            };
+
+            const getAssociatedDev = async () => {
+                try {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/getAllAssociatedDeveloper`, {
+                        method: "GET",
+                        credentials: "include",
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        const ids = data.data?.map(u => u.id) || [];
+                        setSelectedDevs(ids);
+                    }
+                } catch (error) {
+                    console.error("Fetch associated Dev error:", error);
+                }
+            };
+
+            getAssociatedQA();
+            getAssociatedDev();
+        }
+    }, [project, isOpen]);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -43,8 +118,10 @@ export default function AddProjectModal({ isOpen, onClose }) {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
+
+        if (!project) return;
 
         const formData = new FormData();
         formData.append("name", projectName);
@@ -55,10 +132,9 @@ export default function AddProjectModal({ isOpen, onClose }) {
         selectedQAs.forEach(q => formData.append("QA[]", q));
         selectedDevs.forEach(d => formData.append("developer[]", d));
 
-
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/addProject`, {
-                method: "POST",
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/editProject`, {
+                method: "PATCH",
                 body: formData,
                 credentials: "include",
             });
@@ -70,11 +146,34 @@ export default function AddProjectModal({ isOpen, onClose }) {
             }
 
             const data = await res.json();
-            toast.success("Project added successfully!");
+            toast.success("Project updated successfully!");
             onClose();
         } catch (error) {
             console.error("Fetch error:", error);
-            toast.error("Image not uploaded || Invalid Extension(Valid: png/gif)");
+            toast.error("Failed to update project");
+        }
+    };
+
+    const handleDelete = async () => {
+        if (!project || !confirm("Are you sure you want to delete this project?")) return;
+
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/delete`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                toast.error(errorData.message);
+                return;
+            }
+
+            toast.success("Project deleted successfully!");
+            onClose();
+        } catch (error) {
+            console.error("Delete error:", error);
+            toast.error("Failed to delete project");
         }
     };
 
@@ -89,10 +188,10 @@ export default function AddProjectModal({ isOpen, onClose }) {
                 if (isDevOpen) setIsDevOpen(false);
             }}>
                 <div className="modal-header">
-                    <h2>Add new Project</h2>
+                    <h2>Edit Project</h2>
                 </div>
 
-                <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                <form onSubmit={handleUpdate} encType='multipart/form-data'>
                     <div className="modal-body">
                         <div className="form-section">
                             <div className="form-group">
@@ -192,9 +291,27 @@ export default function AddProjectModal({ isOpen, onClose }) {
                         </div>
                     </div>
 
-                    <div className="modal-footer">
-                        <button className="btn-add" type="submit">Add</button>
-                        <button className="btn-cancel" type="button" onClick={onClose}>Cancel</button>
+                    <div className="modal-footer" style={{ justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', gap: '15px' }}>
+                            <button className="btn-add" type="submit">Update</button>
+                            <button className="btn-cancel" type="button" onClick={onClose}>Cancel</button>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleDelete}
+                            style={{
+                                backgroundColor: '#dc3545',
+                                color: 'white',
+                                border: 'none',
+                                padding: '10px 40px',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontSize: '14px',
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            Delete
+                        </button>
                     </div>
                 </form>
             </div>

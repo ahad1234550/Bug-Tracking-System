@@ -21,4 +21,7 @@ bugRouter.get(`${bug_Prefix}/:projectId/readBug`,
 bugRouter.patch(`${bug_Prefix}/:bugId/changeStatus`, 
     (req: AuthRequest, res: Response) => BugController.changeBugStatus(req, res));
 
+bugRouter.delete(`${bug_Prefix}/:bugId/delete`, 
+    (req: AuthRequest, res: Response) => BugController.deleteBug(req, res));
+
 export default bugRouter;

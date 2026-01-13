@@ -31,7 +31,7 @@ export class BugManager {
         return { bug }
     }
 
-    static async readBug(req: AuthRequest): Promise<bug[]> {
+    static async readBug(req: AuthRequest): Promise<{bugs:bug[], role: "manager" | "qa" | "developer"}> {
 
         console.log(req.params.projectId);
 
@@ -49,6 +49,8 @@ export class BugManager {
 
         await BugUtil.checkProjectExist(projectId);
 
+        const search = req.query.search as string;
+
         projectId = parseInt(projectId, 10);
 
         const role = req.user.role;
@@ -57,32 +59,20 @@ export class BugManager {
         let bugs: bug[];
 
         if (role === "manager") {
-            bugs = await BugHandler.getManagerBug(projectId);
-            if (!bugs.length) {
-                console.log("No bug found for manager. project ID: ", projectId)
-                throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
-            }
+            bugs = await BugHandler.getManagerBug(projectId, search);
         }
         else if (role === "qa") {
-            bugs = await BugHandler.getQABug(id, projectId);
-            if (!bugs.length) {
-                console.log("No bug found for QA. project ID: ", projectId)
-                throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
-            }
+            bugs = await BugHandler.getQABug(id, projectId, search);
         }
         else {
-            bugs = await BugHandler.getDeveloperBug(id, projectId);
-            if (!bugs.length) {
-                console.log("No bug found for Developer. project ID: ", projectId)
-                throw new Exception(User.MESSAGES.BUG_NOT_FOUND_FOR_PROJECT, ErrorCodes.DOCUMENT_NOT_FOUND, { resultError: true }).toJson();
-            }
+            bugs = await BugHandler.getDeveloperBug(id, projectId, search);
         }
 
-        return bugs;
+        return {bugs, role};
 
     }
 
-    static async changeBugStatus(req: AuthRequest){
+    static async changeBugStatus(req: AuthRequest): Promise<bug>{
 
         const user = req.user;
 
@@ -93,7 +83,23 @@ export class BugManager {
 
         await BugUtil.checkStatusChangeData(status, bug_id, user.role, user.id);
 
-        const bug = await BugHandler.changeStatus(parseInt(bug_id,10), status);
+        const bugs = await BugHandler.changeStatus(parseInt(bug_id,10), status);
+
+        return bugs;
+    }
+
+    static async deleteBug(req: AuthRequest): Promise<bug> {
+        const bugId = req.params.bugId;
+        if(isNaN(parseInt(bugId, 10))){
+            throw new Exception(User.MESSAGES.BUG_NOT_FOUND,ErrorCodes.BAD_REQUEST,{resultError: true}).toJson();
+        }
+        const bug = await BugHandler.findBugById(parseInt(bugId, 10));
+
+        if(!bug){
+            throw new Exception(User.MESSAGES.BUG_NOT_FOUND,ErrorCodes.DOCUMENT_NOT_FOUND,{resultError: true}).toJson();
+        }
+
+        await BugHandler.deleteBugById(parseInt(bugId, 10));
 
         return bug;
     }

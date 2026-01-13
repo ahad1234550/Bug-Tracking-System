@@ -13,7 +13,8 @@ import useAuth from "@/app/hooks/useAuth";
 export default function Login() {
     const router = useRouter();
 
-    const { loading, isLoggedIn } = useAuth({ redirectToDashboardIfLoggedIn: true });
+    const { loading } = useAuth({ redirectToDashboardIfLoggedIn: true });
+
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -29,7 +30,7 @@ export default function Login() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
-                credentials: "include", // <-- important for cookies
+                credentials: "include",
             });
 
             if (!res.ok) {

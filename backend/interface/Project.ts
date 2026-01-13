@@ -5,9 +5,13 @@ export interface project extends Model {
     name: string;
     description: string;
     logo: string;
-    manager_id: number;
 }
 
+export interface projectUser extends Model {
+    id: number,
+    project_id: number,
+    user_id: number
+}
 export interface projectQA extends Model {
     id: number,
     project_id: number,

@@ -1,20 +1,79 @@
+import { col, fn, literal, Op } from "sequelize";
 import { db } from "../helpers";
 import { project, projectDeveloper, projectQA } from "../interface/Project";
 
 const projectModel = db.Project as any;
+
+const projectUserModel = db.ProjectUser as any;
+
+const userModel = db.User as any;
+
+const bugModel = db.Bug as any;
 
 const projectQaModel = db.ProjectQA as any;
 
 const projectDeveloperModel = db.ProjectDeveloper as any;
 
 export class ProjectHandler {
-    static async addProject(name: string, description: string, logo: string, manager_id: number): Promise<project> {
+    static async addProject(name: string, description: string, logo: string): Promise<project> {
         return projectModel.create({
             name,
             description,
             logo,
-            manager_id
         });
+    }
+
+    static async addUserToProject(project_id: number, user_id: number) {
+        return projectUserModel.create({
+            project_id,
+            user_id
+        });
+    }
+
+
+    static async readProjects(userId: number, search: string): Promise<any[]> {
+        const projects = await projectModel.findAll({
+            where: search
+                ? {
+                    name: {
+                        [Op.iLike]: `%${search}%`
+                    }
+                }
+                : undefined,
+
+            include: [
+                {
+                    model: projectUserModel,
+                    as: "projectUsers",
+                    where: { user_id: userId },
+                    attributes: [],
+                },
+                {
+                    model: bugModel,
+                    as: "bugs",
+                    attributes: [],
+                }
+            ],
+
+            attributes: [
+                "id",
+                "name",
+                "description",
+                "logo",
+                [fn("COUNT", col("bugs.id")), "totalBugs"],
+                [
+                    fn(
+                        "SUM",
+                        literal(`CASE WHEN bugs.status = 'completed' THEN 1 ELSE 0 END`)
+                    ),
+                    "completedBugs"
+                ]
+            ],
+
+            group: ["Project.id"],
+        });
+
+        return projects;
     }
 
     static async updateProject(name: string, description: string, logo: string, id: number): Promise<project> {
@@ -26,11 +85,31 @@ export class ProjectHandler {
         return updatedRows[0];
     }
 
-    static async deleteProjectById(id: number, manager_id: number){
+    static async findQADeveloperInfoFromProject(id: number) {
+        return projectUserModel.findAll({
+            where: { project_id: id },
+            include: [
+                {
+                    model: userModel,
+                    as: "user",
+                    attributes: ["role"],
+                    where: { role: ["qa", "developer"] },
+                },
+            ],
+            attributes: ["user_id"],
+        });
+    }
+
+    static async usersToDelete(projectId: Number, userIdsToDelete: number[]) {
+        await projectUserModel.destroy({
+            where: { project_id: projectId, user_id: userIdsToDelete },
+        });
+    }
+
+    static async deleteProjectById(id: number) {
         await projectModel.destroy({
             where: {
                 id,
-                manager_id
             }
         })
     }
@@ -60,28 +139,6 @@ export class ProjectHandler {
         })
     }
 
-    static async readManagerProjects(manager_id: number): Promise<project[] | null> {
-        return projectModel.findAll({
-            where: { manager_id },
-            raw: true
-        })
-    }
-
-    static async readQAProjects(qa_id: number): Promise<{ project_id: number }[]> {
-        return projectQaModel.findAll({
-            where: { qa_id },
-            attributes: ['project_id'],
-            raw: true
-        });
-    }
-    static async readDeveloperProjects(developer_id: number): Promise<{ project_id: number }[]> {
-        return projectDeveloperModel.findAll({
-            where: { developer_id },
-            attributes: ['project_id'],
-            raw: true
-        });
-    }
-
     static async findProjectByIds(ids: number[]): Promise<project[]> {
         return await projectModel.findAll({
             where: { id: ids },
@@ -96,44 +153,31 @@ export class ProjectHandler {
         });
     }
 
-    static async findProjectByIdAndManager(id: number, manager_id: number): Promise<project | null> {
-        return await projectModel.findOne({
-            where: { 
-                id,
-                manager_id
-             },
-            raw: true
-        });
-    }
-    
+
     static async developer_Exist_For_Project(project_id: number, developer_id: number): Promise<project | null> {
-        return await projectDeveloperModel.findOne({
+        return await projectUserModel.findOne({
             where: {
                 project_id,
-                developer_id
+                user_id : developer_id
             },
             raw: true
         });
     }
 
-    static async getAllQAForProject(project_id: number): Promise<number[]> {
-        return projectQaModel.findAll({
+    static async getAllRolesRelatedForProject(project_id: number, role: string) {
+        const users = await projectUserModel.findAll({
             where: { project_id },
-            attributes: ['qa_id'],
-            raw: true
+            include: [
+                {
+                    model: userModel,
+                    as: "user",
+                    where: { role },
+                    attributes: ["id", "name"]
+                }
+            ],
+            attributes: []
         });
 
+        return users.map((pu) => pu.user);
     }
-
-
-    static async getAllDeveloperForProject(project_id: number): Promise<number[]> {
-        return projectDeveloperModel.findAll({
-            where: { project_id },
-            attributes: ['developer_id'],
-            raw: true
-        });
-    }
-
-
-
 }

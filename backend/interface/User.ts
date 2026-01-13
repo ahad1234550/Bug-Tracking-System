@@ -24,3 +24,8 @@ export interface createUserParams {
 export interface updateProfile {
     number: string
 }
+
+export interface idName {
+    id: number,
+    name: string
+}

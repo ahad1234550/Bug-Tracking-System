@@ -6,17 +6,17 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-      <div className="form-section">
-        <header className="header">
-          <p>Already have an account? <Link href={"/login"}>Sign In</Link></p>
-        </header>
+    <div className="form-section">
+      <header className="header">
+        <p>Already have an account? <Link href={"/login"}>Sign In</Link></p>
+      </header>
 
-        <div className="content">
-          <h1>Join Us!</h1>
-          <p className="subtitle">To begin this journey, tell us what type of account you'd be opening.</p>
+      <div className="content">
+        <h1>Join Us!</h1>
+        <p className="subtitle">To begin this journey, tell us what type of account you'd be opening.</p>
 
-          <div className="options-list">
-              <Link href={"/signup/manager"}>
+        <div className="options-list">
+          <Link href={"/signup/manager"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
               <div className="text">
@@ -25,9 +25,9 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
-              </Link>
+          </Link>
 
-              <Link href={"/signup/developer"}>
+          <Link href={"/signup/developer"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faBriefcase} /></div>
               <div className="text">
@@ -36,9 +36,9 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
-              </Link>
+          </Link>
 
-              <Link href={"/signup/qa"}>
+          <Link href={"/signup/qa"}>
             <div className="option-card">
               <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
               <div className="text">
@@ -47,10 +47,10 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-arrow-right arrow"></i>
             </div>
-              </Link>
-          </div>
+          </Link>
         </div>
       </div>
-    
+    </div>
+
   );
 }

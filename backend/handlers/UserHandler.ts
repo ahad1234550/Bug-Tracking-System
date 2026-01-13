@@ -56,6 +56,13 @@ export class UserHandler {
             raw: true
         });
     }
+    static async findAll(role: "manager" | "qa" | "developer"): Promise<{ id: number; name: string }[]> {
+        return UserModel.findAll({
+            where: { role: role },
+            attributes: ["id", "name"],
+            raw: true
+        });
+    }
 
     static async findDeveloperRoleUser(developerIds: number[]) {
         return UserModel.findAll({

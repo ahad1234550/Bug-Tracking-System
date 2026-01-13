@@ -9,7 +9,8 @@ export class DeleteFile{
         if(!filename){
             return;
         }
-        const pathOfFile = path.join(process.cwd(),"public/uploads/",filename);
+        const pathOfFile = path.join(process.cwd(),"public/",filename);
+        console.log("pathOfFile", pathOfFile);
 
         try {
             if(fs.existsSync(pathOfFile)){

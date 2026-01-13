@@ -12,60 +12,23 @@ export default (sequelize: Sequelize) => {
 
   User.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      number: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      role: {
-        type: DataTypes.ENUM("manager", "qa", "developer"),
-        allowNull: false
-      }
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      name: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, allowNull: false, unique: true },
+      password: { type: DataTypes.STRING, allowNull: false },
+      number: { type: DataTypes.STRING, allowNull: false },
+      role: { type: DataTypes.ENUM("manager", "qa", "developer"), allowNull: false },
     },
-    {
-      sequelize,
-      tableName: "users",
-      timestamps: true
-    }
+    { sequelize, tableName: "users", timestamps: true }
   );
 
   (User as any).associate = (models: any) => {
+    User.belongsToMany(models.Project, { through: models.ProjectUser, foreignKey: "user_id", as: "projects" });
 
-    User.hasMany(models.Project, {
-      foreignKey: "manager_id"
-    });
+    User.hasMany(models.Bug, { foreignKey: "qa_id", as: "qaBugs" });
 
-    User.hasMany(models.Bug, {
-      foreignKey: "qa_id"
-    });
-
-    User.hasMany(models.ProjectQA, {
-      foreignKey: "qa_id"
-    });
-
-    User.hasMany(models.ProjectDeveloper, {
-      foreignKey: "developer_id"
-    });
-
+    User.hasMany(models.Bug, { foreignKey: "developer_id", as: "assignedBugs" });
   };
-
 
   return User;
 };

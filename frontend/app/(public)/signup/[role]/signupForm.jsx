@@ -32,7 +32,6 @@ export default function SignupForm({ role }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Data:", { ...formData });
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/auth/signup`,
                 {
@@ -52,7 +51,6 @@ export default function SignupForm({ role }) {
             }
 
             const data = await res.json();
-            console.log("Success:", data);
             toast.success("Signup Successfully");
             setTimeout(() => {
                 router.push("/login");

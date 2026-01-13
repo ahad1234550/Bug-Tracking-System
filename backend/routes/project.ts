@@ -9,28 +9,34 @@ const Project_Prefix = "/project";
 
 const projectRouter = express.Router();
 
-projectRouter.post(`${Project_Prefix}/addProject`, 
+projectRouter.post(`${Project_Prefix}/addProject`,
     allowRoles("manager"),
     fileUpload.single("logo"),
     (req: AuthRequest, res: Response) => ProjectController.addProject(req, res));
 
-projectRouter.patch(`${Project_Prefix}/:projectId/editProject`, 
+projectRouter.get(`${Project_Prefix}/readProject`,
+    (req: AuthRequest, res: Response) => ProjectController.readProjects(req, res));
+
+projectRouter.patch(`${Project_Prefix}/:projectId/editProject`,
     allowRoles("manager"),
     fileUpload.single("logo"),
     (req: AuthRequest, res: Response) => ProjectController.editProject(req, res));
 
-projectRouter.delete(`${Project_Prefix}/:projectId/delete`, 
+projectRouter.delete(`${Project_Prefix}/:projectId/delete`,
     allowRoles("manager"),
     (req: AuthRequest, res: Response) => ProjectController.deleteProject(req, res));
 
-projectRouter.get(`${Project_Prefix}/readProject`, 
-    (req: AuthRequest, res: Response) => ProjectController.readProjects(req, res));
 
-projectRouter.get(`${Project_Prefix}/:projectId/getAllAssociatedQA`, 
+projectRouter.get(`${Project_Prefix}/:projectId/getAllAssociatedQA`,
     (req: AuthRequest, res: Response) => ProjectController.getAllAssociatedQA(req, res));
 
-projectRouter.get(`${Project_Prefix}/:projectId/getAllAssociatedDeveloper`, 
+projectRouter.get(`${Project_Prefix}/getAllQA`,
+    (req: AuthRequest, res: Response) => ProjectController.getAllQA(req, res));
+
+projectRouter.get(`${Project_Prefix}/:projectId/getAllAssociatedDeveloper`,
     (req: AuthRequest, res: Response) => ProjectController.getAllAssociatedDeveloper(req, res));
 
+projectRouter.get(`${Project_Prefix}/getAllDeveloper`,
+    (req: AuthRequest, res: Response) => ProjectController.getAllDeveloper(req, res));
 
 export default projectRouter;

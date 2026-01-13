@@ -8,23 +8,26 @@ export class ProjectController {
 
     static async addProject(req: Request, res: Response): Promise<Response> {
         try {
-            const { project, qa, developer } = await ProjectManager.addProject(req);
+            const { project, projectUser } = await ProjectManager.addProject(req);
 
             return res.json({
                 success: true,
                 data: {
                     project,
-                    qa,
-                    developer
+                    projectUser,
                 }
             });
 
         } catch (error) {
 
-            DeleteFile.delete(req.file.filename);
+            const filePath = "uploads/" + req.file.filename;
+
+            console.log(filePath);
+
+            DeleteFile.delete(filePath);
 
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
-            
+
             return res.status(statusCode).json(
                 error.toJson ? error.toJson() : { message: error.message, code: statusCode }
             );
@@ -33,28 +36,26 @@ export class ProjectController {
 
     static async editProject(req: Request, res: Response): Promise<Response> {
         try {
-            const { project, qa, developer } = await ProjectManager.editProject(req);
+            const updatedProject = await ProjectManager.editProject(req);
 
             return res.json({
                 success: true,
                 data: {
-                    project,
-                    qa,
-                    developer
+                    updatedProject,
                 }
             });
 
         } catch (error) {
 
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
-            
+
             return res.status(statusCode).json(
                 error.toJson ? error.toJson() : { message: error.message, code: statusCode }
             );
         }
 
     }
-    
+
     static async deleteProject(req: Request, res: Response): Promise<Response> {
         try {
             const project = await ProjectManager.deleteProject(req);
@@ -70,20 +71,23 @@ export class ProjectController {
         } catch (error) {
 
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
-            
+
             return res.status(statusCode).json(
                 error.toJson ? error.toJson() : { message: error.message, code: statusCode }
             );
         }
     }
 
-    static async readProjects(req: Request, res: Response){
+    static async readProjects(req: Request, res: Response): Promise<Response> {
         try {
-            const projects = await ProjectManager.readProjects(req);
+            const { projects, role } = await ProjectManager.readProjects(req);
 
             return res.json({
                 success: true,
-                data: projects
+                data: {
+                    projects,
+                    role
+                }
             });
         } catch (error) {
 
@@ -95,7 +99,7 @@ export class ProjectController {
         }
     }
 
-    static async getAllAssociatedQA(req: Request, res: Response){
+    static async getAllAssociatedQA(req: Request, res: Response) {
         try {
             const users = await ProjectManager.getAllAssociatedQA(req);
 
@@ -112,7 +116,42 @@ export class ProjectController {
             );
         }
     }
-    static async getAllAssociatedDeveloper(req: Request, res: Response){
+
+    static async getAllQA(req: Request, res: Response) {
+        try {
+            const users = await ProjectManager.getAllQA(req);
+
+            return res.json({
+                success: true,
+                data: users
+            });
+        } catch (error) {
+
+            const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
+
+            return res.status(statusCode).json(
+                error.toJson ? error.toJson() : { message: error.message, code: statusCode }
+            );
+        }
+    }
+    static async getAllDeveloper(req: Request, res: Response) {
+        try {
+            const users = await ProjectManager.getAllDeveloper(req);
+
+            return res.json({
+                success: true,
+                data: users
+            });
+        } catch (error) {
+
+            const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
+
+            return res.status(statusCode).json(
+                error.toJson ? error.toJson() : { message: error.message, code: statusCode }
+            );
+        }
+    }
+    static async getAllAssociatedDeveloper(req: Request, res: Response) {
         try {
             const users = await ProjectManager.getAllAssociatedDeveloper(req);
 
@@ -130,5 +169,5 @@ export class ProjectController {
         }
     }
 
-    
+
 }
