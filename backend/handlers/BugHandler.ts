@@ -17,6 +17,19 @@ const buildSearchCondition = (search: string) => {
     };
 };
 
+const orderByFilter = (filter?: "ascending" | "descending") => {
+    if (!filter) return [["createdAt", "DESC"]];
+
+    return [
+        ["createdAt", filter === "ascending" ? "ASC" : "DESC"],
+    ];
+};
+
+const developerFilter = (developer_id?: number) => {
+  if (!developer_id || developer_id === 0) return {};
+  return { developer_id };
+};
+
 export class BugHandler {
     static async addBug(title: string, description: string, deadline: Date, type: "feature" | "bug", status: "new" | "started" | "completed" | "resolved", project_id: number, qa_id: number, screenshot: string, developer_id: number): Promise<bug> {
         return bugModel.create({
@@ -32,11 +45,17 @@ export class BugHandler {
         })
     }
 
-    static async getManagerBug(projectId: number, search?: string) {
+    static async getManagerBug(
+        projectId: number,
+        search?: string,
+        filter?: "ascending" | "descending",
+        developer_id?: number
+    ) {
         const bugs = await bugModel.findAll({
             where: {
                 project_id: projectId,
                 ...buildSearchCondition(search),
+                ...developerFilter(developer_id),
             },
             include: [
                 {
@@ -45,6 +64,7 @@ export class BugHandler {
                     attributes: ["id", "name"],
                 },
             ],
+            order: orderByFilter(filter),
             raw: false,
         });
 
@@ -54,12 +74,20 @@ export class BugHandler {
         }));
     }
 
-    static async getQABug(qa_id: number, project_id: number, search?: string) {
+
+    static async getQABug(
+        qa_id: number,
+        project_id: number,
+        search?: string,
+        filter?: "ascending" | "descending",
+        developer_id?: number
+    ) {
         const bugs = await bugModel.findAll({
             where: {
                 project_id,
                 qa_id,
                 ...buildSearchCondition(search),
+                ...developerFilter(developer_id),
             },
             include: [
                 {
@@ -68,6 +96,7 @@ export class BugHandler {
                     attributes: ["id", "name"],
                 },
             ],
+            order: orderByFilter(filter),
             raw: false,
         });
 
@@ -77,7 +106,13 @@ export class BugHandler {
         }));
     }
 
-    static async getDeveloperBug(developer_id: number, project_id: number, search?: string) {
+
+    static async getDeveloperBug(
+        developer_id: number,
+        project_id: number,
+        search?: string,
+        filter?: "ascending" | "descending",
+    ) {
         const bugs = await bugModel.findAll({
             where: {
                 project_id,
@@ -91,6 +126,7 @@ export class BugHandler {
                     attributes: ["id", "name"],
                 },
             ],
+            order: orderByFilter(filter),
             raw: false,
         });
 
@@ -99,6 +135,7 @@ export class BugHandler {
             developer_name: bug.developer?.name || null,
         }));
     }
+
 
     static async findQABug(qa_id: number, id: number): Promise<bug> {
         return bugModel.findOne({

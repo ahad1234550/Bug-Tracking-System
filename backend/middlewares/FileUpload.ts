@@ -35,7 +35,10 @@ export const fileUpload = multer({
                 { resultError: true }
             ).toJson();
 
-            const err: any = new Error(JSON.stringify(exceptionJson));
+            const err = new Error(User.MESSAGES.FILE_REQUIRED) as any;
+            err.code = ErrorCodes.DOCUMENT_NOT_FOUND;
+            err.resultError = true;
+
             return cb(err, false);
         }
 

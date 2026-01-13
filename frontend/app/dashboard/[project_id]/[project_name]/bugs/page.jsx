@@ -1,7 +1,7 @@
 "use client"
-import { faArrowUpShortWide, faBars, faBorderAll, faFilter, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownWideShort, faArrowUpWideShort, faBars, faBorderAll, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./bug.css"
+import "./bug.css";
 import { useCallback, useEffect, useState } from "react";
 import Grid from "./grid/page";
 import List from "./list/page";
@@ -11,29 +11,54 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function Bugs() {
+  // ----- State -----
   const [view, setView] = useState("list");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { project_id } = useParams();
-  const { project_name } = useParams();
-  const decodedProjectName = decodeURIComponent(project_name);
   const [bugs, setBugs] = useState([]);
   const [role, setRole] = useState("");
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [filter, setFilter] = useState("ascending");
+  const [assignedTo, setAssignedTo] = useState("");
+  const [developers, setDevelopers] = useState([]);
+
+  const { project_id, project_name } = useParams();
+  const decodedProjectName = decodeURIComponent(project_name);
+
+  useEffect(() => {
+    const id = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(id);
+  }, [search]);
+
+  useEffect(() => {
+    const fetchDevelopers = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project_id}/getAllAssociatedDeveloper`,
+          { credentials: "include" }
+        );
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setDevelopers(data.data || []);
+      } catch {
+        toast.error("Failed to load developers");
+      }
+    };
+    fetchDevelopers();
+  }, [project_id]);
 
   const getBugs = useCallback(async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}/readBug?search=${search}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}/readBug?search=${debouncedSearch}&filter=${filter}&assignTo=${assignedTo}`,
         { credentials: "include" }
       );
-
       if (!res.ok) {
         const errorData = await res.json();
         toast.error(errorData.message);
         setBugs([]);
         return;
       }
-
       const data = await res.json();
       setBugs(data.data.bugs || []);
       setRole(data.data.role);
@@ -41,19 +66,9 @@ export default function Bugs() {
       toast.error("Failed to fetch bugs");
       setBugs([]);
     }
-  }, [project_id, search]);
-
-  const handleBugAdded = useCallback(() => {
-    getBugs();
-  }, [getBugs]);
-
+  }, [project_id, debouncedSearch, filter, assignedTo]);
 
   useEffect(() => {
-    const id = setTimeout(() => getBugs(), 400);
-    return () => clearTimeout(id);
-  }, [getBugs]);
-
-  const handleBugUpdate = useCallback(() => {
     getBugs();
   }, [getBugs]);
 
@@ -61,16 +76,21 @@ export default function Bugs() {
     <div className="bugs-page-container">
       <div className="sub-header">
         <div className="welcome-section">
-          <p><Link href={"/dashboard/projects"}>Projects</Link> &nbsp; &gt; &nbsp; <strong>{decodedProjectName}</strong></p>
+          <p>
+            <Link href={"/dashboard/projects"}>Projects</Link> &nbsp; &gt; &nbsp;{" "}
+            <strong>{decodedProjectName}</strong>
+          </p>
           <h2>All Bugs Listing</h2>
         </div>
 
-        {role === "qa" && (<div className="add-container">
-          <button className="add-bug-btn" onClick={() => setIsModalOpen(true)}>
-            <FontAwesomeIcon icon={faPlus} className="plus-icon" />
-            Add New Bug
-          </button>
-        </div>)}
+        {role === "qa" && (
+          <div className="add-container">
+            <button className="add-bug-btn" onClick={() => setIsModalOpen(true)}>
+              <FontAwesomeIcon icon={faPlus} className="plus-icon" />
+              Add New Bug
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="sub-header">
@@ -88,22 +108,49 @@ export default function Bugs() {
         </div>
 
         <div className="action-section">
-          <div onClick={() => { setView("grid") }}>
+          <div>
+            <select
+              name="assigned"
+              value={assignedTo}
+              onChange={(e) => setAssignedTo(e.target.value)}
+            >
+              <option value="">Assigned to</option>
+              {developers.map((dev) => (
+                <option key={dev.id} value={dev.id}>
+                  {dev.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div onClick={() => setFilter(filter === "ascending" ? "descending" : "ascending")}>
+            <FontAwesomeIcon
+              icon={filter === "ascending" ? faArrowUpWideShort : faArrowDownWideShort}
+              className="plus-icon-filter"
+            />
+          </div>
+
+          <div onClick={() => setView("grid")}>
             <FontAwesomeIcon icon={faBorderAll} className="plus-icon-filter" />
           </div>
-          <div onClick={() => { setView("list") }}>
+          <div onClick={() => setView("list")}>
             <FontAwesomeIcon icon={faBars} className="plus-icon-filter" />
           </div>
         </div>
       </div>
 
       {view === "grid" ? (
-        <Grid bugs={bugs} onBugUpdate={handleBugUpdate} />
+        <Grid bugs={bugs} onBugUpdate={getBugs} />
       ) : (
-        <List bugs={bugs} onBugUpdate={handleBugUpdate} />
+        <List bugs={bugs} onBugUpdate={getBugs} />
       )}
 
-      <AddBugModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} projectId={project_id} onBugAdded={handleBugAdded} />
+      <AddBugModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        projectId={project_id}
+        onBugAdded={getBugs}
+      />
     </div>
-  )
+  );
 }

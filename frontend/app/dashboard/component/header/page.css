@@ -2,18 +2,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0px;
+  padding: 20px 0;
   border-bottom: 1px solid #ECECEE;
   height: 95px;
   margin-bottom: 15px;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
 .header-left {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 5;
+  flex: 1;
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -21,47 +29,101 @@
   color: #787486;
   cursor: pointer;
   font-weight: 500;
+  font-size: 15px;
   transition: color 0.2s ease;
 }
 
-.plus-icon {
-    width: 20px;
-    height: 20px;
+.nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
 }
 
-.nav-item:hover,
-.nav-item.active {
+/* active and hover states */
+.nav-item.active,
+.nav-item:hover {
   color: #2F3367;
+}
+
+.plus-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-right {
   display: flex;
-  justify-content: end;
-  flex: 5;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  position: relative;
 }
 
 .profile-badge {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   background-color: #F5F5F7;
   padding: 6px 16px 6px 6px;
   border-radius: 12px;
   cursor: pointer;
+  user-select: none;
 }
 
 .user-avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-name {
   color: #2F3367;
   font-weight: 600;
   font-size: 15px;
+  line-height: 1;
 }
 
-.user-dropdowns{
-  color: black;
-  border: 1px solid black;
+.user-dropdowns {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 180px;
+  margin-top: 10px;
+  background-color: #fff;
+  border: 1px solid #ECECEE;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 999;
+  color: #2F3367;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #F5F5F7;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #ECECEE;
+  margin: 0;
+}
+
+.dropdown-item.logout {
+  color: #FF4D4F;
 }

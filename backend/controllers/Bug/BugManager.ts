@@ -50,6 +50,12 @@ export class BugManager {
         await BugUtil.checkProjectExist(projectId);
 
         const search = req.query.search as string;
+        
+        const filter = req.query.filter as "ascending" | "descending";
+
+        const developerIdRaw= req.query.assignTo as string;
+
+        const developerId = parseInt(developerIdRaw, 10);
 
         projectId = parseInt(projectId, 10);
 
@@ -59,13 +65,13 @@ export class BugManager {
         let bugs: bug[];
 
         if (role === "manager") {
-            bugs = await BugHandler.getManagerBug(projectId, search);
+            bugs = await BugHandler.getManagerBug(projectId, search, filter, developerId);
         }
         else if (role === "qa") {
-            bugs = await BugHandler.getQABug(id, projectId, search);
+            bugs = await BugHandler.getQABug(id, projectId, search, filter, developerId);
         }
         else {
-            bugs = await BugHandler.getDeveloperBug(id, projectId, search);
+            bugs = await BugHandler.getDeveloperBug(id, projectId, search, filter);
         }
 
         return {bugs, role};

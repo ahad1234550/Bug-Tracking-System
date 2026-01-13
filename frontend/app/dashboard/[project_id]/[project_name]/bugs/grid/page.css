@@ -8,6 +8,8 @@
     margin-bottom: 5px;
     padding: 0;
     display: flex;
+    gap: 20px;
+
 }
 
 .project {
@@ -48,15 +50,8 @@
 .project h3 {
     color: #000;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 18px;
 }
-
-.project p {
-    color: #87888C;
-    font-size: 12px;
-    font-weight: 400;
-}
-
 .divider {
     background-color: #e5e8eb;
     width: 100%;
@@ -87,4 +82,14 @@
     height: 16px;
     font-size: 16px;
     color: #3A35418A;
+}
+
+.due-date, .assign-to {
+    font-size: 16px;
+    color: black;
+}
+
+.heading-short {
+    color: #4C7399;
+    font-weight: 400;
 }

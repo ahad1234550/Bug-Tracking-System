@@ -5,6 +5,7 @@ import BugDetailModal from "../bug_detail_modal";
 import { memo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 function Grid({ bugs, onBugUpdate }) {
 
@@ -72,11 +73,11 @@ function Grid({ bugs, onBugUpdate }) {
                             <div className="divider"></div>
                             <div className="project-detail">
                                 <div className="due-date">
-                                    <p>Due Date</p>
-                                    <p>{format(new Date(bug.deadline), "dd-MM-yyyy")}</p>
+                                    <p className="heading-short">Due Date</p>
+                                    <p><FontAwesomeIcon icon={faCalendar} style={{ fontSize: '14px' }} />{format(new Date(bug.deadline), "dd-MM-yyyy")}</p>
                                 </div>
                                 <div className="assign-to">
-                                    <p>Assign to</p>
+                                    <p className="heading-short">Assign to</p>
                                     <p>{bug.developer_name}</p>
                                 </div>
                             </div>
