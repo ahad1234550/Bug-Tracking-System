@@ -22,7 +22,7 @@ export default function Projects() {
     try {
       setLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/readProject?search=${search}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project?search=${search}`,
         { method: "GET", credentials: "include" }
       );
 

@@ -133,7 +133,7 @@ export default function EditProjectModal({ isOpen, onClose, project }) {
         selectedDevs.forEach(d => formData.append("developer[]", d));
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/editProject`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}`, {
                 method: "PATCH",
                 body: formData,
                 credentials: "include",
@@ -158,7 +158,7 @@ export default function EditProjectModal({ isOpen, onClose, project }) {
         if (!project || !confirm("Are you sure you want to delete this project?")) return;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}/delete`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/${project.id}`, {
                 method: "DELETE",
                 credentials: "include",
             });

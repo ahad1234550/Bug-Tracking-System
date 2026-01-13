@@ -49,7 +49,7 @@ export default function Bugs() {
   const getBugs = useCallback(async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}/readBug?search=${debouncedSearch}&filter=${filter}&assignTo=${assignedTo}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}?search=${debouncedSearch}&filter=${filter}&assignTo=${assignedTo}`,
         { credentials: "include" }
       );
       if (!res.ok) {

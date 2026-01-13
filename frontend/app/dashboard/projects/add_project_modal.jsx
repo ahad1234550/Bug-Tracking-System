@@ -57,7 +57,7 @@ export default function AddProjectModal({ isOpen, onClose }) {
 
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project/addProject`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/project`, {
                 method: "POST",
                 body: formData,
                 credentials: "include",

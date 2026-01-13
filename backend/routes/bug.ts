@@ -1,6 +1,4 @@
-import express, { NextFunction, Response } from "express";
-import { User } from "../middlewares/User";
-import { AuthRequest } from "../types";
+import express from "express";
 import { fileUpload } from "../middlewares/FileUpload";
 import { BugController } from "../controllers/Bug/BugController";
 import { allowRoles } from "../middlewares/AllowRoles";
@@ -10,18 +8,14 @@ const bug_Prefix = "/bug";
 
 const bugRouter = express.Router();
 
-bugRouter.post(`${bug_Prefix}/addBug`, 
+bugRouter.post(`${bug_Prefix}`, 
     allowRoles("qa"),
-    fileUpload.single("screenshot"),
-    (req: AuthRequest, res: Response) => BugController.addBug(req, res));
+    fileUpload.single("screenshot"), BugController.addBug);
 
-bugRouter.get(`${bug_Prefix}/:projectId/readBug`, 
-    (req: AuthRequest, res: Response) => BugController.readBug(req, res));
+bugRouter.get(`${bug_Prefix}/:projectId`, BugController.readBug);
 
-bugRouter.patch(`${bug_Prefix}/:bugId/changeStatus`, 
-    (req: AuthRequest, res: Response) => BugController.changeBugStatus(req, res));
+bugRouter.patch(`${bug_Prefix}/:bugId`, BugController.changeBugStatus);
 
-bugRouter.delete(`${bug_Prefix}/:bugId/delete`, 
-    (req: AuthRequest, res: Response) => BugController.deleteBug(req, res));
+bugRouter.delete(`${bug_Prefix}/:bugId`, BugController.deleteBug);
 
 export default bugRouter;

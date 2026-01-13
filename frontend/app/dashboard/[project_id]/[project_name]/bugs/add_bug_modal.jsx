@@ -64,7 +64,7 @@ export default function AddBugModal({ isOpen, onClose, projectId, onBugAdded }) 
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/addBug`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug`, {
         method: "POST",
         body: formData,
         credentials: "include",

@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Response } from "express";
 import authRouter from "./auth";
 import userRouter from "./user";
 import projectRouter from "./project";
@@ -7,7 +7,7 @@ import { User } from "../middlewares/User";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/", (res: Response) => {
   res.render("index");
 });
 
