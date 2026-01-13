@@ -14,6 +14,8 @@ export default function Bugs() {
   const [view, setView] = useState("list");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { project_id } = useParams();
+  const { project_name } = useParams();
+  const decodedProjectName = decodeURIComponent(project_name);
   const [bugs, setBugs] = useState([]);
   const [role, setRole] = useState("");
   const [search, setSearch] = useState("");
@@ -59,7 +61,7 @@ export default function Bugs() {
     <div className="bugs-page-container">
       <div className="sub-header">
         <div className="welcome-section">
-          <p><Link href={"/dashboard/projects"}>Projects</Link> &nbsp; &nbsp; &gt; &nbsp; &nbsp; Bugs</p>
+          <p><Link href={"/dashboard/projects"}>Projects</Link> &nbsp; &gt; &nbsp; <strong>{decodedProjectName}</strong></p>
           <h2>All Bugs Listing</h2>
         </div>
 

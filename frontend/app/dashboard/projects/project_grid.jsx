@@ -58,7 +58,7 @@ export default function ProjectsGrid({
             )}
           </div>
 
-          <Link href={`/dashboard/${project.id}/bugs`}><h3>{project.name}</h3></Link>
+          <Link href={`/dashboard/${project.id}/${project.name}/bugs`}><h3>{project.name}</h3></Link>
           <p>{project.description || "No description"}</p>
 
           <p>
