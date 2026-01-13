@@ -63,9 +63,9 @@ export const User = {
     NO_PROJECT_FOUND: 'No project found for your role.',
     FILE_REQUIRED: 'Image not selected',
     INVALID_PROJECT: 'Project not found',
-    BUG_NOT_FOUND_FOR_PROJECT: 'No bug found for this project',
     INVALID_DATA_TO_CHANGE_BUG_STATUS: 'Invalid data to change bug status',
-    BUG_NOT_ASSIGNED: 'You are not assigned to this bug'
+    BUG_NOT_ASSIGNED: 'You are not assigned to this bug',
+    BUG_NOT_FOUND: 'Bug not found'
   }
 
 };

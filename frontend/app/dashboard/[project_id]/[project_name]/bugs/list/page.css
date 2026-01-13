@@ -1,0 +1,116 @@
+.bugs-page-container .table-container {
+    margin-top: 15px !important;
+    border: 1px solid #E7E7E8;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 99%;
+    margin: 0 auto;
+}
+
+.bugs-page-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bugs-page-container thead {
+    background-color: #F9FAFC;
+}
+
+.bugs-page-container thead th {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #3A3541DE;
+    text-align: center;
+    border-right: 1px solid rgb(170, 170, 170);
+}
+
+.bugs-page-container thead th:first-child {
+    text-align: left;
+}
+
+.bugs-page-container thead th:last-child {
+    border-right: none;
+}
+
+.bugs-page-container tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #3A3541AD;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.bugs-page-container tbody td:first-child {
+    text-align: left;
+}
+
+.bugs-page-container tbody td:last-child {
+    border-right: none;
+}
+
+.bugs-page-container tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.bugs-page-container tbody tr:last-child {
+    border-bottom: none;
+}
+
+.bugs-page-container tbody td img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bugs-page-container .fa-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+}
+
+.bugs-page-container tbody td svg:hover {
+    color: #2f80ed;
+}
+
+.bugs-page-container .status {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.bugs-page-container .status.started {
+    background-color: #FDF2F2;
+    color: #EC5962;
+}
+
+.bugs-page-container .status.completed {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.bugs-page-container .status.new {
+    background-color: #EEF3FF;
+    color: #3069FE;
+}
+
+.bugs-page-container .status.resolved {
+    background-color: #d4d5ed;
+    color: #151c57;
+}
+
+.bugs-page-container .avatar {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Clickable description hover effect */
+.bugs-page-container tbody td[style*="cursor: pointer"]:hover {
+    background-color: #f5f5f5;
+    text-decoration: underline;
+    color: #2f80ed;
+}

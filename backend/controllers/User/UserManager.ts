@@ -1,36 +1,25 @@
 import { UserHandler } from "../../handlers/UserHandler";
 import { UserUtil } from "../../utilities/UserUtil";
 import { AuthRequest } from "../../types";
+import { updateProfile, user } from "../../interface/User";
 
-interface User {
-    id: number,
-    email: string,
-    name: string,
-    password: string,
-    role: string,
-    number: string
-}
-
-interface UpdateProfile {
-    number: string
-}
 
 export class UserManager {
-    static async profile(req: AuthRequest): Promise<User> {
+    static async getProfile(req: AuthRequest): Promise<user> {
         const data = req.user;
         const id = data.id;
-        const user = await UserHandler.FindUserById(id)
-        UserUtil.UserExistCheck(user);
+        const user = await UserHandler.findUserById(id)
+        UserUtil.userExistCheck(user);
         return user;
     }
 
     static async updateProfile(req: AuthRequest) {
-        const updateData: UpdateProfile = req.body;
+        const updateData: updateProfile = req.body;
 
         const id = req.user.id;
-        UserUtil.UpdateProfileCheck(updateData);
+        UserUtil.updateProfileCheck(updateData);
         const user = await UserHandler.updateProfile(updateData, id);
-        UserUtil.UserExistCheck(user);
+        UserUtil.userExistCheck(user);
         return user[1][0];
     }
 }

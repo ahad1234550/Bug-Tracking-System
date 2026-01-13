@@ -1,36 +1,17 @@
 import { db } from "../helpers";
-import { Model } from "sequelize";
+import { createUserParams, updateProfile, user } from "../interface/User";
 const UserModel = db.User as any;
 
-export interface IUser extends Model {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    number: string;
-    role: "manager" | "qa" | "developer";
-}
 
-interface createUserParams {
-    name: string,
-    email: string,
-    password: string,
-    number: string,
-    role: "manager" | "qa" | "developer"
-}
-
-interface UpdateProfile {
-    number: string
-}
 
 export class UserHandler {
-    static async FindUserByEmail(email: string): Promise<IUser | null> {
+    static async findUserByEmail(email: string): Promise<user | null> {
         return UserModel.findOne({
             where: { email }
         })
     }
 
-    static async SignUpUser({ name, email, password, number, role }: createUserParams): Promise<IUser> {
+    static async signUpUser({ name, email, password, number, role }: createUserParams): Promise<user> {
         return UserModel.create({
             email,
             name,
@@ -40,13 +21,13 @@ export class UserHandler {
         });
     }
 
-    static async FindUserById(id: number): Promise<IUser | null> {
+    static async findUserById(id: number): Promise<user | null> {
         return UserModel.findOne({
             where: { id }
         })
     }
 
-    static async updateProfile(data: UpdateProfile, id: number): Promise<IUser | null> {
+    static async updateProfile(data: updateProfile, id: number): Promise<user | null> {
         console.log(data);
         return UserModel.update({
             number: data.number
@@ -58,7 +39,7 @@ export class UserHandler {
         })
     }
 
-    static async FindUserRoleById(id: number): Promise<string | null> {
+    static async findUserRoleById(id: number): Promise<string | null> {
         const user = await UserModel.findOne({
             where: { id },
             attributes: ['role'],
@@ -68,15 +49,22 @@ export class UserHandler {
         return user ? user.role : null;
     }
 
-    static async FindQARoleUser(qaIds: number[]) {
+    static async findQARoleUser(qaIds: number[]) {
         return UserModel.findAll({
             where: { id: qaIds },
             attributes: ["id", "name"],
             raw: true
         });
     }
+    static async findAll(role: "manager" | "qa" | "developer"): Promise<{ id: number; name: string }[]> {
+        return UserModel.findAll({
+            where: { role: role },
+            attributes: ["id", "name"],
+            raw: true
+        });
+    }
 
-    static async FindDeveloperRoleUser(developerIds: number[]) {
+    static async findDeveloperRoleUser(developerIds: number[]) {
         return UserModel.findAll({
             where: { id: developerIds },
             attributes: ["id", "name"],

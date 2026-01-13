@@ -1,0 +1,95 @@
+.projects-list {
+    margin-left: auto;
+    margin-right: auto;
+    flex-flow: wrap;
+    justify-content: space-between;
+    width: 99%;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+
+}
+
+.project {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: #F7FAFC;
+    border: 1px solid #E5E8EB;
+    border-radius: 10px;
+}
+
+.project-detail {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 8px;
+    gap: 10px;
+}
+
+.btn-detail {
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px 8px;
+}
+
+.btn-detail button {
+    width: 100%;
+    background-color: #E8EDF2;
+    border-radius: 5px;
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    color: black;
+    padding: 8px 0;
+
+}
+
+.project h3 {
+    color: #000;
+    font-weight: 600;
+    font-size: 18px;
+}
+.divider {
+    background-color: #e5e8eb;
+    width: 100%;
+    height: 1px;
+}
+
+.project span {
+    font-weight: 900;
+}
+
+.due-date {
+    display: flex;
+    justify-content: space-between;
+}
+
+.assign-to {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #3A35418A;
+}
+
+.due-date, .assign-to {
+    font-size: 16px;
+    color: black;
+}
+
+.heading-short {
+    color: #4C7399;
+    font-weight: 400;
+}

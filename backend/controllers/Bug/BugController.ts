@@ -16,7 +16,11 @@ export class BugController {
 
         } catch (error) {
 
-            DeleteFile.delete(req.file.filename);
+            const filePath = "uploads/"+req.file.filename;
+
+            console.log(filePath);
+
+            DeleteFile.delete(filePath);
 
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
 
@@ -28,11 +32,11 @@ export class BugController {
 
     static async readBug(req: Request, res: Response): Promise<Response> {
         try {
-            const bugs = await BugManager.readBug(req);
+            const {bugs, role} = await BugManager.readBug(req);
 
             return res.json({
                 success: true,
-                data: bugs
+                data: {bugs, role}
             })
         } catch (error) {
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
@@ -49,6 +53,22 @@ export class BugController {
             return res.json({
                 success: true,
                 data: bug
+            })
+        } catch (error) {
+            const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;
+
+            return res.status(statusCode).json(
+                error.toJson ? error.toJson() : { message: error.message, code: statusCode }
+            );
+        }
+    }
+
+    static async deleteBug(req: Request, res: Response): Promise<Response> {
+        try {
+            const bug = await BugManager.deleteBug(req);
+            return res.json({
+                success: true,
+                data: {bug , message: "Deleted Successfully"}
             })
         } catch (error) {
             const statusCode = Validators.validateCode(error.code, ErrorCodes.INTERNAL_SERVER_ERROR) || ErrorCodes.INTERNAL_SERVER_ERROR;

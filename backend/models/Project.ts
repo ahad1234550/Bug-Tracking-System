@@ -6,63 +6,43 @@ export default (sequelize: Sequelize) => {
     public name!: string;
     public description!: string;
     public logo!: string;
-    public manager_id!: number;
   }
 
   Project.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      description: {
-        type: DataTypes.TEXT,
-        allowNull: true
-      },
-      logo: {
-        type: DataTypes.STRING,
-        allowNull: true
-      },
-      manager_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      }
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      name: { type: DataTypes.STRING, allowNull: false },
+      description: { type: DataTypes.TEXT, allowNull: true },
+      logo: { type: DataTypes.STRING, allowNull: true },
     },
-    {
-      sequelize,
-      tableName: "projects",
-      timestamps: true
-    }
+    { sequelize, tableName: "projects", timestamps: true }
   );
 
   (Project as any).associate = (models: any) => {
-    Project.belongsTo(models.User, {
-      foreignKey: "manager_id",
-      as: "manager"
-    });
+    Project.belongsToMany(models.User, { through: models.ProjectUser, foreignKey: "project_id", as: "users" });
 
-    Project.hasMany(models.Bug, {
-      foreignKey: "project_id"
-    });
+    Project.hasMany(models.Bug, { foreignKey: "project_id", as: "bugs" });
 
-    Project.belongsToMany(models.User, {
-      through: models.ProjectQA,
+    Project.hasMany(models.ProjectUser, {
       foreignKey: "project_id",
-      otherKey: "qa_id",
-      as: "qas"
+      as: "projectUsers"
     });
 
-    Project.belongsToMany(models.User, {
-      through: models.ProjectDeveloper,
-      foreignKey: "project_id",
-      otherKey: "developer_id",
-      as: "developers",
-    });
+    (Project as any).associate = (models: any) => {
+      Project.belongsToMany(models.User, {
+        through: models.ProjectUser,
+        foreignKey: "project_id",
+        as: "users",
+        onDelete: "CASCADE"
+      });
+
+      Project.hasMany(models.Bug, {
+        foreignKey: "project_id",
+        as: "bugs",
+        onDelete: "CASCADE" 
+      });
+    };
+
 
   };
 

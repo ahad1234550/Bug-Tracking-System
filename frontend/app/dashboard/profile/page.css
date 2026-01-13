@@ -1,0 +1,118 @@
+.profile-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.profile-header {
+    margin-bottom: 40px;
+}
+
+.profile-header h2 {
+    font-size: 24px;
+    color: black;
+    font-weight: 700;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.display-box {
+    background-color: #F6F7F9;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.field-icon {
+    color: #A0AEC0;
+    font-size: 20px;
+    width: 20px;
+}
+
+.field-icon-dark {
+    color: #2D3748;
+    font-size: 20px;
+    width: 20px;
+}
+
+.field-text {
+    color: #718096;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.editable-field {
+    position: relative;
+    border: 2px solid #90CDF4;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.field-label {
+    position: absolute;
+    top: -12px;
+    left: 15px;
+    background: white;
+    padding: 0 8px;
+    color: #4A5568;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.number-input {
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2D3748;
+    width: 100%;
+    background: transparent;
+}
+
+.action-area {
+    margin-top: 20px;
+}
+
+.update-btn {
+    width: auto;
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 40px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.update-btn:hover:not(:disabled) {
+    background-color: #1A202C;
+}
+
+.update-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.loading-container,
+.error-container {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 18px;
+    color: #718096;
+}

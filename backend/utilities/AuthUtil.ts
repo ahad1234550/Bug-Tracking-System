@@ -88,7 +88,7 @@ export class AuthUtil {
         }
     }
 
-    static async PasswordCompare(password: string, enteredPassword: string): Promise<void> {
+    static async passwordCompare(password: string, enteredPassword: string): Promise<void> {
         const passwordCheck = await bcrypt.compare(password, enteredPassword);
         if (!passwordCheck) {
             console.log("login:: Password does not match.");
