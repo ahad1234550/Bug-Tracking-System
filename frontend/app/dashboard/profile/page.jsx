@@ -66,10 +66,11 @@ export default function Profile() {
   if (!user) return <div className="error-container">User not found</div>;
 
   return (
-    <div className="profile-container">
+    <>
       <div className="profile-header">
         <h2>Profile Setting</h2>
       </div>
+    <div className="profile-container">
 
       <div className="profile-content">
         <div className="display-box">
@@ -106,5 +107,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }
