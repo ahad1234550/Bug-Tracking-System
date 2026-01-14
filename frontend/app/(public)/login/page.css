@@ -20,11 +20,13 @@
   font-size: 28px;
   color: #2F3367;
   margin-bottom: 8px;
+  font-weight: 700;
 }
 
 .form-section-login .subtitle {
   color: #8692A6;
   margin-bottom: 30px;
+  font-size: 16px;
 }
 
 .form-section-login .login-form {
@@ -37,11 +39,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  background-color: #F5F7F9;
+  background-color: #F5F5F7;
   border-radius: 8px;
   padding: 14px 16px;
   border: 1.5px solid transparent;
   transition: all 0.25s ease;
+  font-size: 18px;
+  color: #3C4071;
 }
 
 .form-section-login .input-group:focus-within,
@@ -101,10 +105,10 @@
   background-color: var(--primary);
   color: #ffffff;
   border: none;
-  padding: 16px;
+  padding: 19px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -114,14 +118,20 @@
 .form-section-login .footer-text {
   margin-top: 30px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   color: #8692A6;
 }
 
 .form-section-login .footer-text a {
   color: var(--primary);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
   margin-left: 8px;
 }
 
+.form-section-login .divider {
+    width: 100%;
+    margin: 35px 0;
+    height: 1px;
+    background-color: #ECECF0;
+}

@@ -23,9 +23,11 @@
 
 .bugs-page-container .welcome-section h2 {
     font-size: 36px;
-    color: #000;
+    color: #252C32;
     margin: 0;
     font-weight: 700;
+    line-height: 48px;
+    letter-spacing: -2.2%;
 }
 
 .bugs-page-container .welcome-section p {
@@ -36,10 +38,10 @@
 
 .bugs-page-container .add-bug-btn {
     background-color: var(--primary);
-    color: white;
+    color: #F6F8F9;
     border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
+    padding: 8px 24px;
+    border-radius: 6px;
     font-weight: 600;
     font-size: 14px;
     display: flex;
@@ -47,6 +49,8 @@
     gap: 10px;
     cursor: pointer;
     transition: background 0.2s;
+    letter-spacing: -0.6%;
+    line-height: 24px;
 }
 
 .bugs-page-container .add-bug-btn:hover {
@@ -63,6 +67,8 @@
     position: absolute;
     left: 15px;
     top: 50%;
+    width: 14px !important;
+    height: 14px !important;
     transform: translateY(-50%);
     color: #8692A6;
 }
@@ -70,10 +76,11 @@
 .bugs-page-container .search-input {
     width: 70%;
     padding: 12px 15px 12px 45px;
-    background-color: #F1F1F1;
-    border: none;
-    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #DDE2E4;
+    border-radius: 6px;
     font-size: 14px;
+    font-weight: 400;
     outline: none;
     color: #2F3367;
 }
@@ -87,10 +94,23 @@
     gap: 10px;
 }
 
+.icons {
+    border: 1px solid #DDE2E4;
+    width: 32px;
+    height: 32px;
+    background-color: #F6F8F9;
+    border-radius: 6px;
+}
+
+.icons.active .plus-icon-filter {
+    color: var(--primary) !important;
+}
+
 .bugs-page-container .plus-icon-filter {
+    padding: 8px;
     color: #344054;
-    width: 20px;
-    height: 25px;
+    width: 14px;
+    height: 14px;
 }
 
 .bugs-page-container .nav-item span {

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "./page.css";
+import Link from "next/link";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -97,6 +98,13 @@ export default function Profile() {
         </div>
 
         <div className="action-area">
+          <p
+            className="cancel-btn"
+          >
+          <Link href={"/dashboard/projects"}>
+            Cancel
+          </Link>
+          </p>
           <button
             onClick={handleUpdate}
             disabled={updating}

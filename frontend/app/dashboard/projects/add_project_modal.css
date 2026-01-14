@@ -23,9 +23,9 @@
 
 .modal-overlay-add-project .modal-header h2 {
     margin: 0 0 20px 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
 }
 
 .modal-overlay-add-project .modal-body {
@@ -48,19 +48,21 @@
 }
 
 .modal-overlay-add-project .form-group label {
-    font-size: 14px;
-    color: #333;
+    font-size: 17px;
+    color: black;
+    font-weight: 400;
 }
 
 .modal-overlay-add-project .form-group input,
 .modal-overlay-add-project .form-group select {
     background-color: transparent;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid #F4F4F5;
+    border-radius: 5px;
     font-size: 14px;
     color: black;
     outline: none;
+    font-weight: 400;
 }
 
 .modal-overlay-add-project .form-group input::placeholder {
@@ -70,10 +72,11 @@
 .modal-overlay-add-project .custom-select {
     background-color: transparent;
     padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    border: 1px solid #F4F4F5;
+    border-radius: 5px;
     font-size: 14px;
     color: black;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -91,8 +94,9 @@
     left: 0;
     right: 0;
     background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    border: 1px solid #F4F4F5;
+    ;
+    border-radius: 5px;
     margin-top: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
@@ -160,15 +164,24 @@
     margin-top: 30px;
 }
 
+.btn {
+    flex: 1.4;
+}
+
+.non-btn {
+    flex: 1;
+}
+
 .modal-overlay-add-project .btn-add {
     background-color: #007bff;
+    width: 48%;
     color: white;
     border: none;
     padding: 10px 40px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 19px;
+    font-weight: 400;
 }
 
 .modal-overlay-add-project .btn-add:hover {
@@ -177,12 +190,15 @@
 
 .modal-overlay-add-project .btn-cancel {
     background-color: white;
+    width: 48%;
     color: #333;
     border: 1px solid #ccc;
     padding: 10px 40px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 19px;
+    font-weight: 400;
+    margin-left: 4%;
 }
 
 .modal-overlay-add-project .btn-cancel:hover {

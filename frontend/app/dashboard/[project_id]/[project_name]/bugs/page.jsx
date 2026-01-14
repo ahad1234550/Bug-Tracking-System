@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function Bugs() {
-  // ----- State -----
   const [view, setView] = useState("list");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bugs, setBugs] = useState([]);
@@ -50,7 +49,7 @@ export default function Bugs() {
   const getBugs = useCallback(async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}/readBug?search=${debouncedSearch}&filter=${filter}&assignTo=${assignedTo}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${project_id}?search=${debouncedSearch}&filter=${filter}&assignTo=${assignedTo}`,
         { credentials: "include" }
       );
       if (!res.ok) {
@@ -99,7 +98,7 @@ export default function Bugs() {
             <FontAwesomeIcon icon={faSearch} className="search-icon plus-icon" />
             <input
               type="text"
-              placeholder="Search for Projects here"
+              placeholder="Search"
               className="search-input"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -123,17 +122,17 @@ export default function Bugs() {
             </select>
           </div>
 
-          <div onClick={() => setFilter(filter === "ascending" ? "descending" : "ascending")}>
+          <div className="icons" onClick={() => setFilter(filter === "ascending" ? "descending" : "ascending")}>
             <FontAwesomeIcon
               icon={filter === "ascending" ? faArrowUpWideShort : faArrowDownWideShort}
               className="plus-icon-filter"
             />
           </div>
 
-          <div onClick={() => setView("grid")}>
+          <div className={`icons ${view === "grid" ? "active" : ""}`} onClick={() => setView("grid")}>
             <FontAwesomeIcon icon={faBorderAll} className="plus-icon-filter" />
           </div>
-          <div onClick={() => setView("list")}>
+          <div className={`icons ${view === "list" ? "active" : ""}`} onClick={() => setView("list")}>
             <FontAwesomeIcon icon={faBars} className="plus-icon-filter" />
           </div>
         </div>

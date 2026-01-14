@@ -24,8 +24,8 @@
 .project-detail {
     display: flex;
     flex-direction: column;
-    padding: 16px 8px;
-    gap: 10px;
+    padding: 16px 16px;
+    gap: 12px;
 }
 
 .btn-detail {
@@ -40,7 +40,7 @@
     border-radius: 5px;
     font-family: Inter;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 13px;
     border: none;
     color: black;
     padding: 8px 0;
@@ -93,3 +93,9 @@
     color: #4C7399;
     font-weight: 400;
 }
+
+.dynamic-short {
+    font-size: 15px;
+    font-weight: 400p;
+}
+

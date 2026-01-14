@@ -31,7 +31,7 @@ export default function BugActionModal({ isOpen, onClose, bug, onUpdate, positio
         setIsUpdating(true);
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${bug.id}/changeStatus`,
+                `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${bug.id}`,
                 {
                     method: "PATCH",
                     headers: {
@@ -66,7 +66,7 @@ export default function BugActionModal({ isOpen, onClose, bug, onUpdate, positio
         setIsUpdating(true);
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${bug.id}/delete`,
+                `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/bug/${bug.id}`,
                 {
                     method: "DELETE",
                     credentials: "include",

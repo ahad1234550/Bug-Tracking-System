@@ -1,7 +1,7 @@
 .projects-page-container .sub-header {
     display: flex;
     align-items: center;
-    padding: 20px 40px;
+    padding: 20px 0px;
     background-color: #fff;
     border-bottom: 1px solid #f0f0f0;
     border-left: 4px solid #50A885;
@@ -9,31 +9,31 @@
 
 .projects-page-container .welcome-section {
     flex: 1;
+    padding: 0 40px;
 }
 
 .projects-page-container .welcome-section h2 {
-    font-size: 20px;
+    font-size: 16px;
     color: #000;
     margin: 0;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .projects-page-container .welcome-section p {
     font-size: 14px;
-    color: #8692A6;
+    color: #AEAEAE;
     margin: 4px 0 0 0;
+    font-weight: 460;
 }
 
 .projects-page-container .search-add-container {
-    flex: 1;
     display: flex;
     flex-direction: row;
+    gap: 20px;
 }
 
 .projects-page-container .search-wrapper {
-    flex: 6;
     position: relative;
-    justify-content: end;
 }
 
 .projects-page-container .search-icon {
@@ -46,23 +46,19 @@
 }
 
 .projects-page-container .search-input {
-    width: 70%;
+    width: 300px;
     padding: 12px 15px 12px 45px;
     background-color: #F1F1F1;
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
+    font-weight: 400;
     color: #2F3367;
 }
 
 .projects-page-container .search-input::placeholder {
     color: #8692A6;
-}
-
-.projects-page-container .action-section {
-    flex: 4;
-    justify-content: end;
 }
 
 .projects-page-container .add-bug-btn {
@@ -71,7 +67,7 @@
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -93,7 +89,7 @@
     margin-right: auto;
     flex-flow: wrap;
     justify-content: space-between;
-    width: 99%;
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 5px;
     padding: 0;
@@ -104,12 +100,12 @@
     width: 30%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     background-color: #fff;
     box-shadow: 2px 2px 2px 2px #dedede;
     border-radius: 10px;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .projects-page-container .project h3 {
@@ -120,12 +116,13 @@
 
 .projects-page-container .project p {
     color: #87888C;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
 }
 
 .projects-page-container .project span {
-    font-weight: 900;
+    font-weight: 500 !important;
+    color: #000000;
 }
 
 .projects-page-container .project-image {

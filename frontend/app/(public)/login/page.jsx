@@ -95,6 +95,8 @@ export default function Login() {
                     </button>
                 </form>
 
+                <div className="divider"></div>
+
                 <div className="footer-text">
                     Don't have an account? <Link href="/">Create account</Link>
                 </div>
